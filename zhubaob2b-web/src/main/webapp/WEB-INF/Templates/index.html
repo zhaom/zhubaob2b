@@ -1,0 +1,92 @@
+#parse("./common/header.html")
+
+	<link href="#IMAGE_URL()app/css/index.css" rel="stylesheet" type="text/css" />
+	<script src="#IMAGE_URL()app/js/index.js" type="text/javascript"></script>
+
+	<div class="container">
+		<div class="silder_focus">
+			<div class="silder">
+				<div class="per_class clearfix">
+					<h3>按材质<span>Texture</span></h3>
+					<div>#foreach($r in $materials)<a href="/category/${r.id}.html">${r.name}</a>#end</div>
+				</div>
+				<div class="per_class clearfix">
+					<h3>按款式<span>Style</span></h3>
+					<div>#foreach($r in $styles)<a href="/category/?styleId=${r.id}">${r.name}</a>#end</div>
+				</div>
+				<div class="per_class clearfix">
+					<h3>主题系列<span>Theme Series</span></h3>
+					<div>#foreach($r in $series)<a href="/category/?seriesId=${r.id}">${r.name}</a>#end</div>
+				</div>
+			</div>
+			<div class="index_focus">
+				<div class="focus">
+					<ul>
+						<li><a href="#"><img src="#UPLOAD_URL()test/11.jpg" /></a></li>
+						<li><a href="#"><img src="#UPLOAD_URL()test/12.jpg" /></a></li>
+						<li><a href="#"><img src="#UPLOAD_URL()test/13.jpg" /></a></li>
+						<li><a href="#"><img src="#UPLOAD_URL()test/14.jpg" /></a></li>
+					</ul>	
+				</div>
+				<ul class="num">
+					<li class="current">1</li>
+					<li>2</li>
+					<li>3</li>
+					<li>4</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<div class="mar_t_0 container">
+		<div class="all_product clearfix">
+			<div class="all_left f_l">
+				#foreach($group in $groups)
+				<div class="${group.alias} floor mar_t_10 clearfix">
+					<div class="ad f_l">
+						<a href="/category/${group.id}.html"><div class="ad_pic"><img src="#IMAGE_URL()app/images/${group.alias}-icon.jpg" alt="" title="" /></div><div class="ad_txt"><h3>${group.name}</h3><p>${group.title}</p></div></a>
+					</div>
+					<div class="product f_r">
+						#foreach($product in $group.products)
+						<dl>
+							<dt><a href="/product/${product.id}.html" title="${product.name}"><img src="#LOADING_IMAGE_URL()" data-original="${product.img}_172x172.jpg" alt="${product.name}" title="${product.name}" class="lazyload" /></a></dt>
+							<dd class="opacity-bg"><a href="/product/${product.id}.html" title="${product.name}"><h3>${product.name}</h3>#if($product.isFixedPrice == 1)<p>平台价：<i>${product.price}</i></p>#end</a></dd>
+						</dl>
+						#end
+					</div>
+				</div>
+				#end
+			</div>
+			<div class="all_right f_r">
+				<div class="activity mar_t_10">
+					<div class="act_pic">
+						<img src="#IMAGE_URL()app/images/act_pic.jpg" alt="">
+						<div class="opacity-bg">
+							<h3>投资专题</h3>
+							<p>Topics in Investment</p>
+						</div>
+					</div>
+				</div>
+				<div class="activity mar_t_10">
+					<div class="act_pic">
+						<img src="#IMAGE_URL()app/images/act_pic1.jpg" alt="">
+						<div class="opacity-bg">
+							<h3>婚嫁专题</h3>
+							<p>Marriage project</p>
+						</div>
+					</div>
+				</div>
+				<div class="activity mar_t_10">
+					<div class="act_pic">
+						<img src="#IMAGE_URL()app/images/act_pic2.jpg" alt="">
+						<div class="opacity-bg">
+							<h3>星座专题</h3>
+							<p>The constellation theme</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+#parse("./common/footer.html")

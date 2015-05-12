@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-4.0.0.xsd">
+	<parent>
+        <groupId>com.zhubao.b2b</groupId>
+        <artifactId>zhubaob2b</artifactId>
+        <version>1.001.001</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+    <name>zhubaob2b-web</name>
+    <artifactId>zhubaob2b-web</artifactId>
+    <packaging>war</packaging>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <package.environment>development</package.environment>
+        <springframework.version>3.2.4.RELEASE</springframework.version>
+        <shiro.version>1.2.2</shiro.version>
+    </properties>
+
+    <dependencies>
+    	<!-- javax start -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+        </dependency>
+    	<!-- javax end -->
+		
+		<dependency>
+  			<groupId>commons-digester</groupId>
+  			<artifactId>commons-digester</artifactId>
+  			<version>2.1</version>
+		</dependency>
+		
+        <dependency>
+            <groupId>com.zhubao.b2b</groupId>
+            <artifactId>zhubaob2b-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.zhubao.b2b</groupId>
+            <artifactId>zhubaob2b-platform</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+		<!-- springframework start -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-core</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-beans</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+        <!-- springframework end -->
+
+		<!-- shiro start -->
+		<dependency>
+  			<groupId>org.apache.shiro</groupId>
+  			<artifactId>shiro-core</artifactId>
+  			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.apache.shiro</groupId>
+  			<artifactId>shiro-aspectj</artifactId>
+  			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.apache.shiro</groupId>
+  			<artifactId>shiro-guice</artifactId>
+  			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.apache.shiro</groupId>
+  			<artifactId>shiro-web</artifactId>
+  			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.apache.shiro</groupId>
+  			<artifactId>shiro-spring</artifactId>
+  			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.apache.shiro.web</groupId>
+  			<artifactId>velocity-support</artifactId>
+  			<version>0.0.3</version>
+		</dependency>
+		<!-- shiro end -->
+
+        <dependency>
+  			<groupId>org.apache.velocity</groupId>
+  			<artifactId>velocity</artifactId>
+  			<version>1.7</version>
+		</dependency>
+		<dependency>
+  			<groupId>org.apache.velocity</groupId>
+  			<artifactId>velocity-tools</artifactId>
+  			<version>2.0-beta4</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.codehaus.jackson</groupId>
+    		<artifactId>jackson-core-asl</artifactId>
+    		<version>1.8.4</version>
+		</dependency>
+		<dependency>
+    		<groupId>org.codehaus.jackson</groupId>
+    		<artifactId>jackson-mapper-asl</artifactId>
+    		<version>1.8.4</version>
+		</dependency>
+
+		<dependency>
+    		<groupId>org.apache.tapestry</groupId>
+    		<artifactId>tapestry-kaptcha</artifactId>
+    		<version>5.3.7</version>
+		</dependency>
+
+		<dependency>
+  			<groupId>net.spy</groupId>
+  			<artifactId>spymemcached</artifactId>
+  			<version>2.9.1</version>
+		</dependency>
+
+		<dependency>
+  			<groupId>org.grouplens.common</groupId>
+  			<artifactId>common-hash</artifactId>
+  			<version>0.5</version>
+		</dependency>
+
+    	<dependency>
+    		<groupId>junit</groupId>
+    		<artifactId>junit</artifactId>
+    		<scope>test</scope>
+    	</dependency>
+    </dependencies>
+    
+    <profiles>
+    	<profile>
+    		<id>development</id>
+            <properties>
+                <package.environment>development</package.environment>
+            </properties>
+    	</profile>
+    	<profile>
+    		<id>release</id>
+            <properties>
+                <package.environment>release</package.environment>
+            </properties>
+    	</profile>
+    </profiles>
+
+    <build>
+		<finalName>zhubaob2b-web</finalName>
+		<plugins>
+		    <plugin>
+        		<groupId>org.apache.maven.plugins</groupId>
+        		<artifactId>maven-resources-plugin</artifactId>
+        		<version>2.4.3</version>
+        		<configuration>
+            		<encoding>${project.build.sourceEncoding}</encoding>
+        		</configuration>
+    		</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<port>8090</port>
+					<path>/</path>
+					<uriEncoding>UTF-8</uriEncoding>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+		<resources>
+        	<resource>
+            	<directory>src/main/resources/${package.environment}</directory>
+                <filtering>true</filtering>
+            </resource>
+		</resources>
+	</build>
+</project>

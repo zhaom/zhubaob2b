@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean name="basicService" class="com.zhubao.b2b.platform.service.impl.BasicServiceSupport">
+    </bean>
+
+    <bean name="goodsMaterialService" class="com.zhubao.b2b.platform.service.impl.GoodsMaterialServiceImpl" parent="basicService">
+        <property name="goodsMaterialDAO" ref="goodsMaterialDAO"/>
+    </bean>
+
+    <bean name="goodsStyleService" class="com.zhubao.b2b.platform.service.impl.GoodsStyleServiceImpl" parent="basicService">
+        <property name="goodsStyleDAO" ref="goodsStyleDAO"/>
+    </bean>
+
+    <bean name="goodsUseService" class="com.zhubao.b2b.platform.service.impl.GoodsUseServiceImpl" parent="basicService">
+        <property name="goodsUseDAO" ref="goodsUseDAO"/>
+    </bean>
+
+    <bean name="goodsAttributeService" class="com.zhubao.b2b.platform.service.impl.GoodsAttributeServiceImpl" parent="basicService">
+        <property name="goodsAttributeDAO" ref="goodsAttributeDAO"/>
+        <property name="goodsAttributeValueDAO" ref="goodsAttributeValueDAO"/>
+    </bean>
+
+    <bean name="goodsSkuAttributeService" class="com.zhubao.b2b.platform.service.impl.GoodsSkuAttributeServiceImpl" parent="basicService">
+        <property name="goodsSkuAttributeDAO" ref="goodsSkuAttributeDAO"/>
+        <property name="goodsSkuAttributeValueDAO" ref="goodsSkuAttributeValueDAO"/>
+    </bean>
+
+    <bean name="goodsService" class="com.zhubao.b2b.platform.service.impl.GoodsServiceImpl" parent="basicService">
+        <property name="venderDAO" ref="venderDAO"/>
+        <property name="goodsDAO" ref="goodsDAO"/>
+        <property name="goodsMaterialDAO" ref="goodsMaterialDAO"/>
+        <property name="goodsStyleDAO" ref="goodsStyleDAO"/>
+        <property name="goodsUseDAO" ref="goodsUseDAO"/>
+        <property name="goodsAttributeValueDAO" ref="goodsAttributeValueDAO"/>
+        <property name="goodsAttributeDAO" ref="goodsAttributeDAO"/>
+        <property name="goodsSkuDAO" ref="goodsSkuDAO"/>
+        <property name="goodsSkuAttributeValueDAO" ref="goodsSkuAttributeValueDAO"/>
+        <property name="goodsSkuAttributeDAO" ref="goodsSkuAttributeDAO"/>
+        <property name="attributeSpecTranslateUtils" ref="attributeSpecTranslateUtils" />
+    </bean>
+
+    <bean name="shopCartService" class="com.zhubao.b2b.platform.service.impl.ShopCartServiceImpl" parent="basicService">
+        <property name="shopCartDAO" ref="shopCartDAO"/>
+        <property name="shopCartGoodsDAO" ref="shopCartGoodsDAO"/>
+        <property name="goodsDAO" ref="goodsDAO"/>
+        <property name="goodsSkuDAO" ref="goodsSkuDAO"/>
+        <property name="attributeSpecTranslateUtils" ref="attributeSpecTranslateUtils" />
+        <property name="venderDAO" ref="venderDAO" />
+        <property name="priceHelper" ref="priceHelper" />
+    </bean>
+
+    <bean name="shipAddressService" class="com.zhubao.b2b.platform.service.impl.ShipAddressServiceImpl" parent="basicService">
+        <property name="shipAddressDAO" ref="shipAddressDAO"/>
+    </bean>
+
+    <bean name="paywayService" class="com.zhubao.b2b.platform.service.impl.PaywayServiceImpl" parent="basicService">
+        <property name="paywayDAO" ref="paywayDAO"/>
+    </bean>
+
+    <bean name="userService" class="com.zhubao.b2b.platform.service.impl.UserServiceImpl" parent="basicService">
+        <property name="loginStatDAO" ref="loginStatDAO"/>
+        <property name="customerDAO" ref="customerDAO"/>
+        <property name="venderDAO" ref="venderDAO"/>
+        <property name="kshopAgencyDAO" ref="kshopAgencyDAO"/>
+        <property name="kshopHelper" ref="kshopHelper" />
+    </bean>
+
+    <bean name="orderService" class="com.zhubao.b2b.platform.service.impl.OrderServiceImpl" parent="basicService">
+        <property name="orderDAO" ref="orderDAO"/>
+        <property name="orderGoodsDAO" ref="orderGoodsDAO"/>
+        <property name="shipAddressDAO" ref="shipAddressDAO"/>
+        <property name="orderStatusDAO" ref="orderStatusDAO"/>
+        <property name="paywayDAO" ref="paywayDAO"/>
+        <property name="custPaywayDAO" ref="custPaywayDAO"/>
+        <property name="balanceOrderFlowDAO" ref="balanceOrderFlowDAO"/>
+        <property name="demandOrderFlowDAO" ref="demandOrderFlowDAO"/>
+        <property name="customerDAO" ref="customerDAO"/>
+        <property name="venderDAO" ref="venderDAO"/>
+        <property name="goodsSkuDAO" ref="goodsSkuDAO"/>
+        <property name="goodsSalesDAO" ref="goodsSalesDAO"/>
+        <property name="goodsSalesItemDAO" ref="goodsSalesItemDAO"/>
+        <property name="invoiceDAO" ref="invoiceDAO"/>
+        <property name="invoiceItemDAO" ref="invoiceItemDAO"/>
+        <property name="shopCartGoodsDAO" ref="shopCartGoodsDAO"/>
+        <property name="shopCartService" ref="shopCartService"/>
+        <property name="goodsService" ref="goodsService"/>
+        <property name="kshopHelper" ref="kshopHelper"/>
+        <property name="attributeSpecTranslateUtils" ref="attributeSpecTranslateUtils" />
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean name="buybackService" class="com.zhubao.b2b.platform.service.impl.BuybackServiceImpl" parent="basicService">
+        <property name="buybackApplyDAO" ref="buybackApplyDAO"/>
+        <property name="customerDAO" ref="customerDAO"/>
+        <property name="venderDAO" ref="venderDAO"/>
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean name="settleAccountService" class="com.zhubao.b2b.platform.service.impl.SettleAccountServiceImpl" parent="basicService">
+        <property name="userService" ref="userService"/>
+        <property name="orderService" ref="orderService"/>
+        <property name="settleAccountDAO" ref="settleAccountDAO"/>
+        <property name="settleAccountItemDAO" ref="settleAccountItemDAO"/>
+        <property name="settleService" ref="settleService"/>
+        <property name="venderDAO" ref="venderDAO"/>
+    </bean>
+
+    <bean name="settleService" class="com.zhubao.b2b.platform.service.impl.VolumeAndHedgingFeeSettleSeriveImpl" parent="basicService">
+
+    </bean>
+</beans>

@@ -1,0 +1,12 @@
+@charset "UTF-8";
+
+#pay .column .box .i-list dt {font-size: 14px; line-height: 28px;}
+#pay .column .box .i-list li, #pay .column .box .i-list dd {line-height: 25px;}
+
+#pay .service-pay .box {padding-top: 20px; padding-bottom: 20px;}
+#pay .service-pay .box .fk-service {font-size: 14px; padding: 0px 100px 0px 15px;}
+#pay .pay-confirm .choose-inp {background: url(/app/images/selcet_infor_check.jpg) no-repeat center -30px; padding: 3px 25px 3px 0px; cursor: pointer;}
+#pay .pay-confirm .choose-inp.selected {background-position: left -30px;}
+#pay .pay-confirm .choose-inp input {position: relative; left: -100px;}
+#pay .pay-confirm .box .sendValidCodeBtn {float: left; display: block; overflow: hidden;}
+#pay .pay-confirm .box .sendValidCodeBtn .send-validcode-btn {height: 30px; line-height: 30px; float: left; clear: right;}

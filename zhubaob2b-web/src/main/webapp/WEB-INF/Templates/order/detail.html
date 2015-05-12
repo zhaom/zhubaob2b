@@ -1,0 +1,156 @@
+#parse("./common/header.html")
+${mergeResource.css("list.css,order.css", "app/css/")}
+
+	#if($r.statusInfo.status != $order_status_wait_develivery&&$r.statusInfo.status != $order_status_wait_confirm&&$r.statusInfo.status != $order_status_canceled&&$r.statusInfo.status != $order_status_ended)<div class="order-step-${r.status} order-step container"></div>#end
+
+	<div id="orderDetail" class="collapse container">
+		#if($r.statusInfo.status != $order_status_wait_weight&&$r.statusInfo.status != $order_status_weighting&&$isPayed == false)
+		<form id="payForm" action="/pay/pay?type=order" method="post">
+		#end
+		<div class="column clearfix">
+			<h2 class="head"><span class="mar_r_10 f_r">$!{orderStatus.get($r.status)}</span>订单号：${r.id}<!--${r.statusInfo.status}--></h2>
+			<div class="box clearfix">
+				<ul class="list">
+					<li>供应商：$!{r.vender.kshopAgencyName}</li>
+				</ul>
+			</div>
+		</div>
+		#if($r.statusInfo.status != $order_status_wait_weight&&$r.statusInfo.status != $order_status_weighting&&$r.statusInfo.status != $order_status_canceled)
+		<div class="column clearfix">
+			<h2 class="head">收货人信息</h2>
+			<div class="box clearfix">
+				<ul class="list">
+				#if($isPayed == true)
+					<li>收货人：${r.address.contactUser}</li>
+					#if($r.address.tel)<li>联系电话：${r.address.tel}</li>#end
+					#if($r.address.mobile)<li>手机：${r.address.mobile}</li>#end
+					#if($r.address.email)<li>E-mail：${r.address.email}</li>#end
+					#if($r.address.address)<li>联系地址：${r.address.address}#if($address.postCode)(${r.address.postCode})#end</li>#end
+				#else
+					#foreach($address in $addresses)
+					<li><input name="shipAddressId" type="radio" value="${address.id}"#if($address.id == $shipAddressId) checked="checked"#end />${address.address}&nbsp;(${address.contactUser}#if($address.mobile) - ${address.mobile}#end)</li>
+					#end
+				#end
+				</ul>
+			</div>
+		</div>
+		#end
+		<div class="column clearfix">
+			<h2 class="head">商品清单</h2>
+			<div class="table-box box clearfix">
+				<table cellpadding="0" cellspacing="0" class="list-table">
+					<thead>
+						<tr>
+							<th class="w100">商品类型</th>
+							<th colspan="2">商品情况</th>
+							<th class="w50">数量</th>
+							<th class="w80">金料重量</th>
+							<th class="last-col">费用</th>
+						</tr>
+					</thead>
+					<tbody>
+						#foreach($product in $r.goods)
+						<tr>
+							<td class="w100">#PRODUCT_TYPE()</td>
+							<td class="thumb"><a href="/product/${product.goodsId}.html" title="${product.name}" target="_blank"><img src="#LOADING_IMAGE_URL()" data-original="${product.coverImg}_125x125.jpg" title="${product.name}" alt="${product.name}" class="lazyload" /></a></td>
+							<td class="detail">
+								<dl>
+									<dt><a href="/product/${product.goodsId}.html" title="${product.name}" target="_blank">${product.name}</a></dt>
+									#PRODUCT_SKU_ATTRIBUTES($product, "dd")
+								</dl>
+							</td>
+							<td class="w50">${product.amount}</td>
+							#if($r.statusInfo.status == $order_status_weighted||$r.statusInfo.status == $order_status_wait_confirm||$r.statusInfo.status == $order_status_ended)
+							<td class="w80">${product.materialWeight} g</td>
+							#else
+							<td class="w80">${product.valuedWeight} g</td>
+							#end
+							<td class="price last-col">
+								<dl>
+									<dt>${product.subSumPrice} 元</dt>
+									#ORDER_PRODUCT_PRICES($product, "dd")
+								</dl>
+							</td>
+						</tr>
+						#end
+					</tbody>
+				</table>
+			</div>
+		</div>
+		#if($r.statusInfo.status != $order_status_wait_weight&&$r.statusInfo.status != $order_status_weighting)
+		#if($isPayed == false)<a name="pay_submit"></a>#end
+		<div class="column clearfix">
+			<h2 class="head">风控套保服务</h2>
+			<div class="form-box box clearfix">
+				<ul class="fk-choose list">
+					#if($isPayed == false)
+					<li><input id="fk_yes" name="fk" type="radio" value="1" checked="checked" class="fk mar_r_5" /><label for="fk_yes">使用风控套保服务————我已阅读第三方<a href="" class="blue" target="_blank">《风控套保协议》</a></label></li>
+					<li><input id="fk_no" name="fk" type="radio" value="0" class="fk mar_r_5" /><label for="fk_no">不使用风控套保服务</label></li>
+					#else
+					<li>使用风控套保服务————我已阅读第三方<a href="" class="blue" target="_blank">《风控套保协议》</a></li>
+					#end
+				</ul>
+			</div>
+		</div>
+		<div class="column clearfix">
+			<h2 class="head">支付方式</h2>
+			<div class="form-box box clearfix">
+				<span class="item">
+				#if($isPayed == true)
+					${r.payway.name}
+				#else
+					<select name="payway" class="txt">
+					#foreach($payway in $payways)<option value="${payway.id}">${payway.name}</option>#end
+					</select>
+				#end
+				</span>
+			</div>
+		</div>
+		<div class="column clearfix">
+			<h2 class="head">订单金额</h2>
+			<div class="form-box box clearfix">
+				<ul class="fk-choose list">
+					#if($r.orderPrice)
+					#foreach($price in $r.orderPrice)
+					<li>${price.desc}: ${price.price}</li>
+					#end
+					#end
+				</ul>
+				#if($isPayed == false)
+				<input name="orderId" type="hidden" value="${r.id}" />
+				<div class="bottom pad_t_b_10"><a href="javascript:$('#payForm').submit();" class="pay-btn w80 btn-red btn">付款</a></div>
+				#end
+			</div>
+		</div>
+		#if($isPayed == false)</form>#end
+		#end
+	</div>
+	#if($isPayed == false)
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var payways = $('select[name="payway"]');
+			var fk_payway = $('option[value="${hedging_payway}"]', payways);
+			var other_payways = fk_payway.siblings();
+
+			function reset_payway(){
+				var val = $('input:radio[name="fk"]:checked').val();
+
+				if(val == 0){
+					$('select[name="payway"]').append(other_payways);
+					fk_payway.remove();
+				}else{
+					$('select[name="payway"]').append(fk_payway);
+					other_payways.remove();
+				}
+			}
+
+			$("input.fk").click(function(){
+				reset_payway();
+			});
+
+			reset_payway();
+		});
+	</script>
+	#end
+
+#parse("./common/footer.html")

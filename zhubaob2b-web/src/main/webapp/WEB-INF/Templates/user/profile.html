@@ -1,0 +1,73 @@
+#parse("./common/header.html")
+
+	<link href="http://image.zhubao.com/css/artDialog/twitter.css" type="text/css" rel="stylesheet" />
+	${mergeResource.css("user.css", "app/css/")}
+
+	<div id="profile" class="container">
+		<div class="column clearfix">
+			<h2 class="head">基本信息</h2>
+			<div class="box clearfix">
+				<ul>
+					<li class="name fb">${user.kshopAgencyName}</li>
+					<li>信用积分：300</li>
+					<li>信用等级：高级</li>
+				</ul>
+			</div>
+		</div>
+		<div class="column clearfix">
+			<h2 class="head">账户资金</h2>
+			<div class="box clearfix">
+				<ul>
+					<li>可用资金：<em class="fund">1234元</em></li>
+					<li>冻结资金：<em class="fund">1234元</em></li>
+					<li class="totalFund fb">账户总金额：<em class="fund">123456.88元</em></li>
+				</ul>
+				<a class="recharge-btn btn-red btn fb">转账充值</a>
+			</div>
+		</div>
+		<div class="column clearfix">
+			<h2 class="head">我的供应商</h2>
+			<div class="box clearfix">
+				<ul>
+					<li class="name fb">${user.kshopAgencyName}</li>
+					<li>可用资金：<em class="fund">1234元</em></li>
+					<li>冻结资金：<em class="fund">1234元</em></li>
+					<li class="totalFund fb">账户总金额：<em class="fund">123456.88元</em></li>
+				</ul>
+			</div>
+		</div>
+		<div class="column clearfix">
+			<h2 class="head"><a href="/contacter/add" class="f_r">添加</a>联系人管理</h2>
+			<div class="box clearfix">
+				#foreach($address in $addresses)
+				<ul class="contacter-list">
+					<li class="name fb">$!{address.contactUser}<a href="/contacter/edit/$!{address.id}" class="edit hide f_r">修改</a></li>
+					#if($address.tel)<li>联系电话：${address.tel}</li>#end
+					#if($address.mobile)<li>手机：${address.mobile}</li>#end
+					#if($address.email)<li>E-mail：${address.email}</li>#end
+					#if($address.address)<li>联系地址：${address.address}#if($address.postCode)(${address.postCode})#end</li>#end
+				</ul>
+				#end
+			</div>
+		</div>
+		<div class="column clearfix">
+			<h2 class="head">增值副本</h2>
+			<div class="box clearfix">
+				<ul>
+					<li>可用资金：<em class="fund">1234元</em></li>
+					<li>冻结资金：<em class="fund">1234元</em></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".contacter-list").hover(function(){
+				$(".name .edit", $(this)).removeClass("hide");
+			}, function(){
+				$(".name .edit", $(this)).addClass("hide");
+			});
+		});
+	</script>
+
+#parse("./common/footer.html")

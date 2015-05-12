@@ -1,0 +1,131 @@
+#parse("./common/header.html")
+<link href="http://image.zhubao.com/css/??jquery.jqzoom/css/jquery.jqzoom.css" rel="stylesheet" type="text/css" />
+${mergeResource.css("detial.css", "app/css/")}
+${mergeResource.javascript("switchImg.js,cart.js", "app/js/")}
+
+	<div class="container">
+		<div class="breadcrumb pad_l_r_10">
+			<a href="/category/" target="_blank">全部分类</a>#if($r.material&&$r.material.name)>>${r.material.name}#end>
+		</div>
+
+		<div class="pro_detail mar_t_15 clearfix">
+			<div class="pro_detail_left f_l">
+				<div class="thumb">#foreach($thumb in $r.imgs)#if($velocityCount == 1)<a href="${thumb}" title="${r.name}" rel="thumb" class="jqzoom"><img id="bigImg" src="${thumb}_440x440.jpg" title="${r.name}" alt="${r.name}" class="fs" /></a>#end#end</div>
+				<div class="wimgdiv mar_t_10">
+					<a href="javascript:;" class="prev f_l">上一个</a><a href="javascript:;" class="next f_r">下一个</a>
+					<div class="imgdiv">
+						<ul class="imgList">
+							#foreach($thumb in $r.imgs)
+							<li#if($velocityCount == 1) class="current"#end><a href="${thumb}" rel="{gallery: 'thumb', smallimage: '${thumb}_440x440.jpg', largeimage: '${thumb}'}" #if($velocityCount == 1) class="zoomThumbActive"#end><img src="${thumb}_77x77.jpg" original-src="${thumb}" title="${r.name}" alt="${r.name}" /></a></li>
+							#end
+						</ul>
+					</div>
+				</div>
+			</div>	
+			<div class="pro_detail_right">
+				<h2 class="product_name">${r.name}</h2>
+				#foreach($attribute in $attributes)
+				<div class="p_level"><span>${attribute.name}：</span>#foreach($value in $attribute.values)<a value="${value.id}" class="attribute">${value.value}</a>#end</div>
+				#end
+				<div class="p_amount"><span>购买数量：</span><a class="a_reduce">-</a>#PRODUCT_BUY_AMOUNT_INPUT($r.id, 0, 1, "")<a class="a_add">+</a></div>
+				<div class="buy_btn"><a href="javascript:;" class="#if($attributes&&$attributes.size() > 0)disabled#end #if($shiro.isAuthenticated() == false)user-dialog-login-btn#else add-product-to-cart-btn#end btn">放入购物车</a></div>
+				<input id="skuId" type="hidden" value="" />
+				<div class="p_information">
+					<div class="sale">
+						<h3>销售信息</h3>
+						<ul class="clearfix">
+							<li><b>供应商</b><i>$!{r.vender.kshopAgencyName}</i></li>
+							#if($r.isFixedPrice == 1)
+							<li><b>价格</b><i>￥${r.price}</i></li>
+							#else
+								#if($r.prices)
+								#foreach($price in $r.prices)<li><b>${price.desc}</b><i>${price.price}</i></li>#end
+								#end
+							#end
+						</ul>
+					</div>
+					#if($r.attrSpecs)
+					<div class="product">
+						<h3>产品参数信息</h3>
+						<ul class="clearfix">
+						#foreach($attribute in $r.attrSpecs)
+							#if($attribute.value)<li><b>${attribute.attributeName}</b><i>${attribute.value}</i></li>#end
+						#end
+						</ul>
+					</div>
+					#end
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="http://image.zhubao.com/js/??jquery.livequery.js,jquery.jqzoom.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var dialogId = "cart-dialog-"+(new Date()).getTime();
+			var amount_inp = $("#product_${r.id}_amount");
+
+			$(".jqzoom").jqzoom({zoomType: "standard", title: false, preloadImages: false, preloadText: false});
+
+			$(".attribute").click(function(){
+				$(this).addClass("selected").siblings().removeClass("selected");
+			});
+
+			amount_inp.blur(function(){
+				var $this = $(this);
+				var value = $this.val();
+
+				if(/^[1-9]\d*$/.test(value) == false){
+					$this.val($this.attr("amount"));
+				}else{
+					var selectedAttributeValueIds = getSelectedAttributeValueIds();
+					window.zhubao.cart.getSku("${r.id}", selectedAttributeValueIds, function(object, response){
+						var sku = response.sku;
+						if(sku){
+							if(sku.curCount&&sku.curCount > value){
+								amount_inp.val(value).attr("amount", value);
+								$(".add-product-to-cart-btn").removeClass("disabled");
+							}else{
+								amount_inp.val(sku.curCount).attr("amount", sku.curCount);
+							}
+						}
+					});
+				}
+			});
+
+			$(".a_reduce").click(function(){
+				window.zhubao.cart.reduceAmount("${r.id}", amount_inp, getSelectedAttributeValueIds());
+			});
+
+			$(".a_add").click(function(){
+				window.zhubao.cart.addAmount("${r.id}", amount_inp, getSelectedAttributeValueIds());
+			});
+
+			function getSelectedAttributeValueIds(){
+				var attributeValueIds = null;
+
+				$(".attribute").each(function(i){
+					var $this = $(this);
+
+					if(i == 0){
+						attributeValueIds = [];
+					}
+
+					if($this.hasClass("selected") == true){
+						var value = $this.attr("value");
+						if(value&&value.length > 0){
+							attributeValueIds.push(value);
+						}
+					}
+				});
+
+				return attributeValueIds;
+			}
+
+			$(".add-product-to-cart-btn").click(function(){
+				window.zhubao.cart.add("${r.id}", getSelectedAttributeValueIds(), amount_inp.val());
+			});
+		});
+	</script>
+
+#parse("./common/footer.html")

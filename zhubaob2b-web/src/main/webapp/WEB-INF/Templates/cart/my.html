@@ -1,0 +1,206 @@
+#parse("./common/header.html")
+${mergeResource.css("list.css,cart.css", "app/css/")}
+	<script src="#IMAGE_URL()app/js/cart.js" type="text/javascript"></script>
+
+	<div class="order-step-WAIT_WEIGHT order-step container"></div>
+
+	<div class="mar_t_0 container">
+		<div class="good_infor">
+			<div class="good_infor_text tips0">
+				<h3>温馨提示:</h3>
+				<p>您的账户可用余额50万，使用风控服务可购买的商品的最大总额是是40万。</p>
+				<a class="good_close"></a>
+			</div>
+			<div class="good_infor_text tips1">
+				<h3>温馨提示:</h3>
+				<p>您购物车中商品的总估价(46万)超出了使用风控服务可购买的商品最大总额(40.0万)。继续使用风控服务，建议您：</p>
+				<h4>方法1：改变部分商品数量，降低选货商品的总额。</h4>
+				<h4>方法2：线下完成充值，方便您一次性采购更多商品。</h4>
+				<p><span>若不使用风控套保服务，请取消风控套保</span></p>
+				<a class="good_close"></a>
+			</div>
+		</div>
+
+		<div class="column mar_t_10">
+			#foreach($group in $groups)
+			<div id="company_${group.vender.id}_product_list" class="goods_list table-box box clearfix">
+				<table cellpadding="0" cellspacing="0" class="list-table">
+					<thead>
+						<tr class="intro">
+							<th rowspan="2" class="w50"><input type="checkbox" checked="checked" class="cart_chk" value="${group.vender.id}" /></th>
+							<th colspan="7" class="last-col"><span class="pad_10 f_l">${group.vender.kshopAgencyName}</span><a href="javascript:;" companyId="${group.vender.id}" class="fright weighing">去称重</a><b class="fright">总估价：${group.totalPrice}&nbsp;元</b><i class="fright">总计：${group.amount}&nbsp;件商品</i></th>
+						</tr>
+						<tr>
+							<th class="w80">商品类型</th>
+							<th colspan="2">商品情况</th>
+							<th>商品金额</th>
+							<th class="w150">数量</th>
+							<th class="w50">库存</th>
+							<th class="w80 last-col">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						#foreach($product in $group.cartGoodsList)
+						<tr id="${product.id}" productid="${product.goodsId}" skuid="${product.sku.id}" class="row">
+							<td class="w50"><input type="checkbox" class="order_products_chk" rel="order_${group.vender.id}_products_chk" checked="checked" value="${product.goodsId}" /></td>
+							<td class="w80">#if($product.isFixedPrice == 1)定价#else计价#end商品</td>
+							<td class="thumb"><a href="/product/${product.goodsId}.html" title="${product.name}" target="_blank"><img src="#LOADING_IMAGE_URL()"#if($product.img) data-original="${product.img}_125x125.jpg"#end alt="${product.name}" title="${product.name}" class="lazyload" /></a></td>
+							<td class="detail">
+								<dl>
+									<dt><a href="/product/${product.goodsId}.html" title="${product.name}" target="_blank">${product.name}</a></dt>
+									#PRODUCT_SKU_ATTRIBUTES($product, "dd")
+								</dl>
+							</td>
+							<td class="price">
+								<dl>
+								#foreach($price in $product.prices)<dd>${price.desc}：<span>${price.price}</span></dd>#end
+								</dl>
+							</td>
+							<td class="w150"><a class="reduce">-</a>#PRODUCT_BUY_AMOUNT_INPUT($product.goodsId, $product.sku.id, $product.amount, $product.id)<a class="goods_add add">+</a></td>
+							<td class="w50"><span>#if($product.sku)${product.sku.curCount}#else 0 #end</span></td>
+							<td class="w80 last-col"><a href="/cart/deleteProduct/${product.id}" class="delete">删除</a></td>
+						</tr>
+						#end
+					</tbody>
+				</table>
+			</div>
+			#end
+		</div>
+	</div>
+
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$(".good_close").click(function(){
+				$(this).parent("div").hide();
+			});
+
+			$("input.show_num").blur(function(){
+				var _this = $(this);
+				var value = _this.val();
+
+				if(/^[1-9]\d*$/.test(value) == false){
+					_this .val(_this .attr("amount"));
+				}else{
+					var tr = _this.parent("td").parent("tr");
+					var id = tr.attr("id");
+					var productid = tr.attr("productid");
+					var skuId = tr.attr("skuid");
+
+					window.zhubao.cart.getAmount(productid, skuId, function(object, response){
+						if(response.amount&&response.amount > value){
+							_this.val(value).attr("amount", value);
+						}else{
+							_this.val(response.amount||0).attr("amount", response.amount||0);
+						}
+
+						window.zhubao.cart.editGoodsAmount(id, _this.val());
+					});
+				}
+			});
+
+			$(".reduce").click(function(){
+				var _this = $(this);
+				var tr = _this.parent("td").parent("tr");
+				var id = tr.attr("id");
+				var productid = tr.attr("productid");
+				var skuId = tr.attr("skuid");
+				var num_inp = _this.next(".show_num");
+
+				window.zhubao.cart.reduceAmount(productid, num_inp, skuId, function(cart, value, response){
+					if(response.amount&&response.amount > value){
+						num_inp.val(value).attr("amount", value);
+					}else{
+						num_inp.val(response.amount||0).attr("amount", response.amount||0);
+					}
+
+					window.zhubao.cart.editGoodsAmount(id, num_inp.val());
+				});
+			});
+
+			$(".add").click(function(){
+				var _this = $(this);
+				var tr = _this.parent("td").parent("tr");
+				var id = tr.attr("id");
+				var productid = tr.attr("productid");
+				var skuId = tr.attr("skuid");
+				var num_inp = _this.prev(".show_num");
+
+				window.zhubao.cart.addAmount(productid, num_inp, skuId, function(cart, value, response){
+					if(response.amount&&response.amount > value){
+						num_inp.val(value).attr("amount", value);
+					}else{
+						num_inp.val(response.amount||0).attr("amount", response.amount||0);
+					}
+
+					window.zhubao.cart.editGoodsAmount(id, num_inp.val());
+				});
+			});
+
+			$(".cart_chk").each(function(){
+				var $this = $(this);
+				var order_id = $this.val();
+
+				if($this.is(":checked") == true){
+					$("input[rel='order_"+order_id+"_products_chk']").attr("checked", true);
+				}
+			});
+
+			$(".cart_chk").click(function(){
+				var $this = $(this);
+				$("input[rel='order_"+$this.val()+"_products_chk']").attr("checked", $this.is(":checked"));
+			});
+
+			$(".weighing").click(function(){
+				var $this = $(this);
+				var companyId = $this.attr("companyId");
+
+				if(!companyId){
+					return false;
+				}
+
+				var shopCartGoods = [];
+				var totalAmmout = 0;
+				$("#company_"+companyId+"_product_list .row .order_products_chk:checked").each(function(){
+					var productId = $(this).val();
+					if(productId){
+						var amount_inp = $("#product_"+productId+"_amount");
+						var ammout = parseInt(amount_inp.val());
+						totalAmmout += ammout;
+						shopCartGoods.push(amount_inp.attr("shopCartGoodsId")+"_"+ammout);
+					}
+				});
+
+				if(shopCartGoods.length == 0){
+					$.dialog({fixed: true, width: 400, height: 120, title: "操作提示", content: "请至少选择一款商品", ok: true, okVal: "确定"});
+					return;
+				}
+
+				$.post("/order/add", {companyId: companyId, shopCartGoods: shopCartGoods}, function(response){
+					if(response.state == true){
+						$.dialog({fixed: true, width: 400, height: 120, title: "操作提示", content: "您已共成功称重 "+shopCartGoods.length+" 款商品，共计 "+totalAmmout+" 件。", ok: true, okVal: "继续称重", cancel: function(){
+						    	window.location.href = "/order/my";
+						    	return true;
+						    }, cancelVal: "查看订单"});
+						var tbody = $this.parent("th").parent("tr").parent("tbody");
+						$(".row td .order_products_chk:checked", tbody).parent("td").parent("tr").remove();
+					}else{
+						$.dialog({fixed: true, width: 400, height: 120, title: "操作提示", content: "操作失败："+response.message, ok: true, okVal: "继续称重"});
+					}
+				});
+			});
+
+			$("a.delete").click(function(){
+				var $this = $(this);
+
+				jQuery["delete"]($this.attr("href"), function(response){
+					if(response.state == true){
+						$this.parent("td").parent("tr").remove();
+					}
+				});
+
+				return false;
+			});
+		});
+	</script>
+
+#parse("./common/footer.html")

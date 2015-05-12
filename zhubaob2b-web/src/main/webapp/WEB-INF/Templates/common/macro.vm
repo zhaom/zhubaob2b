@@ -1,0 +1,83 @@
+#macro(IMAGE_URL)http://okgoldimg.zhubao.com/#end
+#macro(UPLOAD_URL)http://okgoldupload.zhubao.com/#end
+#macro(LOADING_IMAGE_URL)http://image.zhubao.com/images/Common/loading/grey-32-32.gif#end
+#macro(LOGIN_URL)/User/Login.html?redirect=${request.getRequestURL()}#end
+
+#macro(PRODUCT_BUY_AMOUNT_INPUT $productId, $skuId, $amount, $shopCartGoodsId)<input id="product_${productId}_amount" type="text" productid="${productId}"#if($shopCartGoodsId&&$shopCartGoodsId.length() > 0) shopCartGoodsId="${shopCartGoodsId}"#end#if($amount) value="${amount}" amount="${amount}"#else value="1" amount="1"#end class="product_${productId}_quantity show_num" />#end
+
+#macro(PRODUCT_SKU_ATTRIBUTES $product, $tag)
+	#if($product.goodsSku&&$product.goodsSku.skuAttrSpecs)
+		#foreach($attribute in $product.goodsSku.skuAttrSpecs)
+			#if($attribute.value)<${tag}>${attribute.attributeName}：${attribute.value}</${tag}>#end
+		#end
+	#elseif($product.sku&&$product.sku.skuAttrSpecs)
+		#foreach($attribute in $product.sku.skuAttrSpecs)
+			#if($attribute.value)<${tag}>${attribute.attributeName}：${attribute.value}</${tag}>#end
+		#end
+	#end
+#end
+
+#macro(ORDER_PRODUCT_PRICES $product, $tag)
+	#if($product.orderGoodsPrice)
+		#foreach($price in $product.orderGoodsPrice)<${tag}>${price.desc}：<span>${price.price}元</span></${tag}>#end
+	#end
+#end
+
+#macro(PAY_SEND_VALID_CODE)
+$("#sendValidCodeBtn").click(function(){
+	var mobile = $("#mobile");
+
+	if(/^1(([38]\d)|(4[57])|(5[012356789]))\d{8}$/.test(mobile.val()) == true){
+		$.post("/sms/sendValidCode", {mobile: $("#mobile").val()}, function(response){
+			$.dialog({fixed: true, width: 400, height: 120, title: "操作提示", content: response.state ? "验证码发送成功！" : "验证码发送失败！", ok: true, okVal: "确定"});
+		});
+	}else{
+		var error = $('<label for="mobile" class="error">手机号码不正确！</label>');
+		$(this).after(error);
+		setTimeout(function(){
+			error.remove();
+		}, 2000);
+	}
+});
+#end
+
+#macro(PAY_FORM_VALIDATE)
+$("#payForm").validate({
+	rules: {
+		agree: {required: true},
+        password: {required: true},
+        mobile: {required: true, isMobile: true},
+        validCode: {required: true, isValidCode: true}
+    },
+    messages: {
+        agree: {required: "你必须同意！"},
+        password: {required: "支付密码不能为空！"},
+        mobile: {required: "手机号码不能为空！", isMobile: "请填写正确的手机号码！"},
+        validCode: {required: "验证码不能为空！", isValidCode: "验证码不正确！"}
+    },
+});
+#end
+
+#macro(PAY_SUBMIT_FORM, $url)
+$(".pay-btn").click(function(){
+	$("#payForm").submit();
+});
+
+$("#payForm").ajaxForm({
+	dataType: "json",
+	success: function(response){
+		if(response.state == false){
+			$.dialog({fixed: true, width: 400, height: 120, title: "错误提示", content: "支付失败："+response.message, ok: true, okVal: "确定"});
+		}else{
+			$.dialog({fixed: true, width: 400, height: 120, title: "操作提示", content: "支付成功！", ok: function(){
+					window.location.href = "$url)";
+					return true;
+				}, 
+				okVal: "确定"
+			});
+		}
+	}
+});
+#end
+
+#macro(PRODUCT_TYPE $product)#if($product.isFixedPrice == true)定价#else计价#end商品#end

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean name="basicDAO" class="com.zhubao.b2b.platform.dao.impl.BasicDAOSupport">
+        <property name="datastore" ref="datastore"/>
+    </bean>
+
+    <bean name="goodsMaterialDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsMaterialDAOImpl" parent="basicDAO"/>
+    <bean name="goodsStyleDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsStyleDAOImpl" parent="basicDAO"/>
+    <bean name="goodsUseDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsUseDAOImpl" parent="basicDAO"/>
+    <bean name="goodsAttributeDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsAttributeDAOImpl" parent="basicDAO"/>
+    <bean name="goodsAttributeValueDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsAttributeValueDAOImpl" parent="basicDAO"/>
+    <bean name="goodsSkuAttributeDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsSkuAttributeDAOImpl" parent="basicDAO"/>
+    <bean name="goodsSkuAttributeValueDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsSkuAttributeValueDAOImpl" parent="basicDAO"/>
+    <bean name="goodsSkuDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsSkuDAOImpl" parent="basicDAO"/>
+    <bean name="goodsDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsDAOImpl" parent="basicDAO"/>
+    <bean name="shopCartDAO" class="com.zhubao.b2b.platform.dao.impl.ShopCartDAOImpl" parent="basicDAO"/>
+    <bean name="shopCartGoodsDAO" class="com.zhubao.b2b.platform.dao.impl.ShopCartGoodsDAOImpl" parent="basicDAO"/>
+    <bean name="orderStatusDAO" class="com.zhubao.b2b.platform.dao.impl.OrderStatusDAOImpl" parent="basicDAO"/>
+    <bean name="shipAddressDAO" class="com.zhubao.b2b.platform.dao.impl.ShipAddressDAOImpl" parent="basicDAO"/>
+    <bean name="paywayDAO" class="com.zhubao.b2b.platform.dao.impl.PaywayDAOImpl" parent="basicDAO"/>
+    <bean name="balanceOrderFlowDAO" class="com.zhubao.b2b.platform.dao.impl.BalanceOrderFlowDAOImpl" parent="basicDAO"/>
+    <bean name="custPaywayDAO" class="com.zhubao.b2b.platform.dao.impl.CustPaywayDAOImpl" parent="basicDAO"/>
+    <bean name="demandOrderFlowDAO" class="com.zhubao.b2b.platform.dao.impl.DemandOrderFlowDAOImpl" parent="basicDAO"/>
+    <bean name="goodsSalesDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsSalesDAOImpl" parent="basicDAO"/>
+    <bean name="goodsSalesItemDAO" class="com.zhubao.b2b.platform.dao.impl.GoodsSalesItemDAOImpl" parent="basicDAO"/>
+    <bean name="invoiceDAO" class="com.zhubao.b2b.platform.dao.impl.InvoiceDAOImpl" parent="basicDAO"/>
+    <bean name="invoiceItemDAO" class="com.zhubao.b2b.platform.dao.impl.InvoiceItemDAOImpl" parent="basicDAO"/>
+
+    <bean name="customerDAO" class="com.zhubao.b2b.platform.dao.impl.CustomerDAOImpl" parent="basicDAO"/>
+    <bean name="loginStatDAO" class="com.zhubao.b2b.platform.dao.impl.LoginStatDAOImpl" parent="basicDAO"/>
+    <bean name="orderDAO" class="com.zhubao.b2b.platform.dao.impl.OrderDAOImpl" parent="basicDAO"/>
+    <bean name="orderGoodsDAO" class="com.zhubao.b2b.platform.dao.impl.OrderGoodsDAOImpl" parent="basicDAO"/>
+    <bean name="venderDAO" class="com.zhubao.b2b.platform.dao.impl.VenderDAOImpl" parent="basicDAO"/>
+    <bean name="buybackApplyDAO" class="com.zhubao.b2b.platform.dao.impl.BuybackApplyDAOImpl" parent="basicDAO"/>
+    <bean name="kshopAgencyDAO" class="com.zhubao.b2b.platform.dao.impl.KshopAgencyDAOImpl" parent="basicDAO"/>
+    <bean name="settleAccountDAO" class="com.zhubao.b2b.platform.dao.impl.SettleAccountDAOImpl" parent="basicDAO"/>
+    <bean name="settleAccountItemDAO" class="com.zhubao.b2b.platform.dao.impl.SettleAccountItemDaoImpl" parent="basicDAO"/>
+
+    <bean name="kshopHelper" class="com.zhubao.b2b.platform.utils.KShopHelper">
+        <constructor-arg value="${kshop.maxconn}" type="int"/>
+        <constructor-arg value="${kshop.domain}" type="java.lang.String"/>
+        <constructor-arg value="${kshop.cacheinmilli}" type="long"/>
+    </bean>
+
+    <bean name="priceHelper" class="com.zhubao.b2b.platform.utils.PriceHelper">
+        <property name="kShopHelper" ref="kshopHelper" />
+    </bean>
+
+    <bean name="attributeSpecTranslateUtils" class="com.zhubao.b2b.platform.utils.AttributeSpecTranslateUtils">
+        <property name="goodsAttributeDAO" ref="goodsAttributeDAO" />
+        <property name="goodsAttributeValueDAO" ref="goodsAttributeValueDAO" />
+        <property name="goodsSkuAttributeDAO" ref="goodsSkuAttributeDAO" />
+        <property name="goodsSkuAttributeValueDAO" ref="goodsSkuAttributeValueDAO" />
+    </bean>
+</beans>

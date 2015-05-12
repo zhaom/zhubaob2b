@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+    <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config.properties</value>
+                <value>classpath:db-config.properties</value>
+                <value>classpath:kshop-config.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <import resource="classpath:ds-beans.xml"/>
+    <import resource="classpath:dao-beans.xml"/>
+    <import resource="classpath:service-beans.xml"/>
+
+    <bean name="userResource" class="com.zhubao.b2b.api.resource.UserResource">
+        <property name="userService" ref="userService"/>
+    </bean>
+
+    <bean name="goodsCommonResource" class="com.zhubao.b2b.api.resource.GoodsCommonResource">
+        <property name="goodsMaterialService" ref="goodsMaterialService"/>
+        <property name="goodsStyleService" ref="goodsStyleService"/>
+        <property name="goodsUseService" ref="goodsUseService"/>
+        <property name="goodsAttributeService" ref="goodsAttributeService"/>
+        <property name="goodsSkuAttributeService" ref="goodsSkuAttributeService"/>
+    </bean>
+
+    <bean name="goodsResource" class="com.zhubao.b2b.api.resource.GoodsResource">
+        <property name="goodsService" ref="goodsService"/>
+    </bean>
+
+    <bean name="shopCartResource" class="com.zhubao.b2b.api.resource.ShopCartResource">
+        <property name="shopCartService" ref="shopCartService"/>
+    </bean>
+
+    <bean name="orderResource" class="com.zhubao.b2b.api.resource.OrderResource">
+        <property name="orderService" ref="orderService"/>
+    </bean>
+
+    <bean name="balanceOrderResource" class="com.zhubao.b2b.api.resource.BalanceOrderResource">
+        <property name="orderService" ref="orderService"/>
+    </bean>
+</beans>

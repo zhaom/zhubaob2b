@@ -1,0 +1,32 @@
+/*button组件*/
+.btn{height:25px;line-height:25px;background:#fff;padding:0px 10px;display:block;border-radius:4px;-webkit-border-radius:4px;-moz-border-radius:4px;color:#fff;text-align:center;}		
+.btn:hover{text-decoration:none;}
+.btn-simple{border:1px solid #b9b9b9;border-radius:4px;color:#666;}		
+.btn-simple2{border:1px solid #b9b9b9;border-radius:4px;color:#666;height:20px;line-height:20px;padding:0px 6px;}		
+.btn-simple-red{border:2px solid #ec5b44;border-radius:4px;color:#666;}			
+.btn-brown{background:#c9af64;text-shadow:1px 1px 1px #8b6a09;-webkit-text-shadow:1px 1px 1px #8b6a09;-moz-text-shadow:1px 1px 1px #8b6a09;}
+.btn-h36{height:36px;line-height:36px;padding:0px 30px;font-size:14px;}
+.btn-red{background:#d15c1c;color:#fff;text-shadow:1px 1px 1px #c73821;-webkit-text-shadow:1px 1px 1px #c73821;-moz-text-shadow:1px 1px 1px #c73821;}
+.btn-white{background:#fff;color:#b2b2b2;}
+.btn-gray{background:#d9d4d1;text-shadow:1px 1px 1px #97928f;-webkit-text-shadow:1px 1px 1px #97928f;-moz-text-shadow:1px 1px 1px #97928f;}
+.btn-gray-noshadow{background:#999;cursor:default;}
+.btn-large{height:44px;line-height:44px;font-size:18px;}
+.btn-newClass{border:2px solid #ec5b44;}
+/*label组件*/
+.lbl{height:18px;line-height:18px;padding:0px 7px;margin-right:4px;color:#fff;display:inline-block;*zoom:1;*display:inline;}
+.lbl-small{height:14px;}
+.lbl-simple{border:1px solid #b9b9b9;background:#fff;color:#666666;}
+.lbl-brown{background:#c9af64;}
+.lbl-purple{background:#c2aec4;}
+.lbl-gray{background:#8c8c82;}
+.lbl-jdgray{height:22px;line-height:22px;background:#ededed;padding:0px 10px;color:#999999;margin:0px 10px;float:left;margin-top:20px;display:block;}
+.lbl-jdcancel{background:#838383;color:#fff;border-radius:3px;}
+.lbl-lowgray{height:22px;line-height:22px;background:#dddddd;color:#aaaaaa;font-style:normal;float:left;}
+.lbl-large_red{height:30px;line-height:30px;margin-top:-8px;background:#e74c36;color:#fff;font-style:normal;font-size:16px;float:left;}
+.lbl-red{background:#ea5841;color:#fff;}
+
+/**
+ * dialog button
+*/
+.aui_buttons button.aui_state_highlight {background: -moz-linear-gradient(center top, #D15C1C, #D15C1C) repeat 0px 0px #D15C1C; border-color: #D15C1C; text-shadow: -1px -1px 1px #D15C1C;}
+.aui_buttons button.aui_state_highlight:active {box-shadow: 0 1px 5px rgba(209, 92, 28, 0.9) inset, 0px 1px 1em rgba(0, 0, 0, 0.3) inset;}

@@ -1,0 +1,32 @@
+@charset "UTF-8";
+.column .table-box .list-table thead tr.intro {border-bottom: solid 1px #EFE4CB;}
+
+.good_infor{width:960px;margin:0 auto;}
+.good_infor_text{width:940px;background:#f4ebe2;padding:10px 10px;margin:10px 0px;position:relative;overflow:hidden;}
+.good_close{width:13px;height:13px;display:block;background:url(/app/images/tips_close.png) no-repeat;position:absolute;right:10px;top:10px;}
+.good_infor_text h3{height:25px;line-height:25px;font-size:14px;}
+.tips1 h3,.tips1 p{color:#d42525;}
+.tips1 p span{color:#666;}
+.tips1 h4{padding-left:150px;font-size:12px;}
+.goods_list{width:960px;margin:0 auto;}
+.goods_list table tr{height:30px;line-height:30px;}
+.fright{padding:13px 10px;float:right;font-style:normal;}
+b.fright{color:#d42525;}
+.weighing{width:72px;height:26px;margin-top:10px;display:block;background:url(/app/images/all_icons.jpg) no-repeat -5px -352px;text-indent:-99999px;padding:0px 10px;}
+.goods_other p{height:22px;padding:0px 10px;line-height:22px;text-align:left;}
+.goods_other p span{color:#d42525;font-weight:bold;}
+.reduce{width:24px;height:25px;float:left;background:url(/app/images/reduce.jpg) no-repeat;text-indent:-9999px;margin-top:2px;margin-right:10px;margin-left:10px;}
+.goods_add{width:24px;height:25px;float:left;background:url(/app/images/add.jpg) no-repeat;text-indent:-9999px;margin-top:2px;}
+.show_num{padding:0px 2px;width:50px;height:23px;text-align:center;line-height:23px;float:left;border:1px solid #efe4cb;margin-right:10px;margin-top:2px;}
+.goods_list{margin-top:10px;}
+.add_padding{margin-left:10px;_margin-left:5px;}
+.enough{background:#95d6ff;color:#0062a0;font-weight:normal;font-size:12px;}
+.noenough{background:#ff9595;color:#b72b2b;font-weight:normal;font-size:12px;}
+.noenough a{color:#b72b2b;}
+.add_padding i{color:#d42525;font-style:normal;}
+.all_add_btn{padding:10px 0px;}
+.all_add_btn a{width:50px;float:left;margin-left:20px;}
+.zhifu_situation{display:none;}
+.selcet_infor li b{width:24px;height:24px;display:block;position:absolute;left:10px;top:0px;background:url(/app/images/selcet_infor_check.jpg) no-repeat 0px 0px;}
+.selcet_infor li b.new_checked{background-position:0px -30px;}
+.selcet_infor li label{width:110px;height:24px;display:block;line-height:24px;position:absolute;left:30px;top:0px;}

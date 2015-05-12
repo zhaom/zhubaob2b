@@ -1,0 +1,64 @@
+#parse("./common/head.html")
+	<script src="#IMAGE_URL()app/js/common.js" type="text/javascript"></script>
+
+	<div id="header" class="header">
+		<div class="toolbar">
+			#if($shiro.isGuest())
+			<span class="no-login f_l">您好，欢迎您来到OK黄金网，请<a href="/User/Login.html" target="_self">[登录]</a></span>
+			#end
+			<span class="my f_r">
+				<ul class="my-menu">
+					<li><a href="/User/profile.html" target="_blank">我的账户</a></li>
+					<li><a href="/order/my/" target="_blank">我的订单(<b id="top_order_quantity">0</b>)<em class="icon"></em></a><span id="top_order_stat" class="discover hide"></span></li>
+					<li><a href="/cart/" target="_blank">购物车(<b id="top_cart_quantity">0</b>)</a></li>
+					<li><a href="/balance/" target="_blank">申请结价(<b id="top_balance_quantity">0</b>)<em class="icon"></em></a>
+						<span class="discover hide">
+							<ul>
+								<li><a href="/balance/apply.html">申请结价</a></li>
+								<li><a href="/balance/">我的结价单</a></li>
+							</ul>
+						</span>
+					</li>
+					<li><a href="/tradeIn/" target="_blank">申请回购<em class="icon"></em></a>
+						<span class="discover hide">
+							<ul>
+								<li><a href="/tradeIn/apply.html">申请回购</a></li>
+								<li><a href="/tradeIn/">我的回购单</a></li>
+							</ul>
+						</span>
+					</li>
+				</ul>
+			</span>
+		</div>
+		<div class="hd clearfix">
+			<div class="logo f_l"><a href="/"><img src="#IMAGE_URL()images/logo.png" alt="珠宝网" title="珠宝网" /></a></div>
+			<div class="nav f_l">
+				<ul>
+					<li class="current"><a href="/" target="_blank">首页</a></li>
+					<!--li><a href="/" target="_blank">品牌供应商</a></li>
+					<li><a href="/" target="_blank">风控套宝</a></li-->
+				</ul>
+			</div>
+			<div class="search f_r">
+				<span class="search-m">
+					<form action="/category/search" method="get">
+						<input id="keywords" name="keywords" type="text" value="#if($keywords)${keywords}#else请输入关键字#end" class="txt f_l" /><input type="submit" value="搜索" class="btn f_l" />
+					</form>
+				</span>
+				<span class="a-link f_r"><a href="" class="mar_r_10"><em class="icon f_r"></em>今日金价</a><a href="">移动应用</a></span>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+		$("#keywords").click(function(){
+			var val = $(this).val();
+			if(val == "请输入关键字"){
+				$(this).val("");
+			}
+		}).blur(function(){
+			var val = $(this).val();
+			if(val == ""){
+				$(this).val("请输入关键字");
+			}
+		});
+	</script>

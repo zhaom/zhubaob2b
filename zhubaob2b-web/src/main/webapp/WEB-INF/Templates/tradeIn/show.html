@@ -1,0 +1,42 @@
+#parse("./common/header.html")
+
+	<link href="#IMAGE_URL()app/css/tradeIn.css" type="text/css" rel="stylesheet" />
+
+	<div class="detail container">
+		<h2>我的申请单</h2>
+		<div class="main clearfix">
+			<table cellspacing="0" cellpadding="0">
+				<tr>
+					<td class="title">申请目标商家</td>
+					<td colspan="2" class="hot pad_l_10">${r.vender.kshopAgencyName}</td>
+				</tr>
+				<tr>
+					<td class="title">预约时间</td>
+					<td colspan="2" class="hot pad_l_10">${r.applyTime}</td>
+				</tr>
+				<tr>
+					<td class="title">回购金料</td>
+					<td colspan="2">
+						<dl class="data">
+							<dt><span class="left fb">金料成色</span><span class="fb">估重</span></dt>
+							#foreach($item in $r.items)
+							<dd><span class="left">${item.materialRolex}</span><span>${item.selfWeight}g</span></dd>
+							#end
+						</dl>
+					</td>
+				</tr>
+				<tr>
+					<td class="title">申请人</td>
+					<td colspan="2" class="pad_t_b_10">
+						<ul class="contacter">
+							<li>${r.customer.kshopUserNickName}</li>
+							<li>公司：中国黄金集团</li>
+							<li>联系方式：${r.customer.kshopUserTel}</li>
+						</ul>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+#parse("./common/footer.html")

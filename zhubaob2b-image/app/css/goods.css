@@ -1,0 +1,21 @@
+.goods_list{width:960px;margin:0 auto;}
+.goods_list table{border-collapse:collapse;width:960px;background:#fff;border:1px solid #aea0a0;}
+.goods_list table tr{border:1px solid #aea0a0;height:30px;line-height:30px;border-color:#aea0a0;}
+.goods_list table tr td,.goods_list table tr th{border-right:1px solid #aea0a0;text-align:center;}
+.store_name{padding:10px 10px;float:left;}
+.fright{padding:13px 10px;float:right;font-style:normal;}
+b.fright{color:#f00;}
+.weighing{width:83px;height:34px;margin-top:10px;display:block;background:url(/app/images/weighing.jpg) no-repeat;text-indent:-99999px;padding:0px 10px;}
+.g_pic_text{padding:10px 10px;}
+.goods_pic{width:125px;height:104px;padding-right:20px;float:left;}
+.goods_txt{width:170px;height:104px;float:left;overflow:hidden;}
+.goods_txt p,.goods_txt h3{width:170px;height:22px;line-height:22px;text-align:left;}
+.goods_txt h3{font-size:14px;}
+.goods_pic a{width:125px;height:104px;display:block;border:1px solid #b1a4a4;}
+.goods_pic a img{width:125px;height:104px;}
+.goods_other p{height:22px;padding:0px 10px;line-height:22px;text-align:left;}
+.goods_other p span{font-size:14px;color:#f00;}
+.reduce{width:24px;height:25px;float:left;background:url(/app/images/reduce.jpg) no-repeat;text-indent:-9999px;margin-top:2px;margin-right:10px;margin-left:18px;_margin-left:9px;}
+.goods_add{width:24px;height:25px;float:left;background:url(/app/images/add.jpg) no-repeat;text-indent:-9999px;margin-top:2px;}
+.mount{padding:0px 10px;width:24px;height:23px;line-height:23px;float:left;border:1px solid #838282;margin-right:10px;margin-top:2px;}
+.goods_list{margin-top:10px;}

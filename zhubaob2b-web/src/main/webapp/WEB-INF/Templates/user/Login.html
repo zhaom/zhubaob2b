@@ -1,0 +1,70 @@
+#if($isAjax == true)
+#parse("./common/head.html")
+#else
+#parse("./common/header.html")
+#end
+	<link href="#IMAGE_URL()app/css/user.css" type="text/css" rel="stylesheet" />
+
+	<div id="userLogin" class="container">
+		<h2>登录OK黄金网</h2>
+		<form id="loginForm" name="loginForm" action="/User/Login" method="post">
+		<div class="main clearfix">
+			<div id="loginError" class="error"><ul></ul></div>
+			<div class="item">
+				<label for="username">用户名</label><input name="username" type="text" value="$!{username}" hidefocus="true" autocomplete="off" class="txt" />
+			</div>
+			<div class="item">
+				<label for="password">密码</label><input name="password" type="password" value="" class="txt"/>
+			</div>
+			<div class="item">
+				<a href="#" class="f_r">忘记密码？</a><input name="isRememberMe" type="checkbox" value="1"#if($isRememberMe) checked="checked"#end class="rememberMe" /><span>记住我</span>
+			</div>
+			<div class="item">
+				<input type="submit" value="登录" hidefocus="true" class="sub_btn btn" />
+			</div>
+			<div class="item"><a href="#" target="_blank">没有账号？？点击查看如何免费申请入驻。</a></div>
+		</div>
+		<input name="redirect" type="hidden" value="$!{redirect}" />
+		</form>
+	</div>
+
+	<script src="http://image.zhubao.com/js/??jquery.ajaxForm.js,jquery.validate.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			$("#loginForm").validate({
+				ignore: null,
+				errorLabelContainer: $(".error ul"),
+				errorElement: "li",
+				rules: {
+					username: "required",
+					password: "required"
+				},
+				messages: {
+					username: {"required": "用户名不能为空！"},
+					password: {"required": "密码不能为空！"}
+				}
+			});
+
+			$("#loginForm").ajaxForm({
+				dataType: "json",
+				success: function(response){
+					if(response.state == false){
+						$("#loginError").html('<ul><li>'+response.message+'</li></ul>');
+					}else{
+						#if($isAjax == true)
+						parent.window.location.reload();
+						#else
+						window.location.replace(response.redirect);
+						#end
+					}
+				}
+			});
+		});
+	</script>
+
+#if($isAjax == true)
+</body>
+</html>
+#else
+#parse("./common/footer.html")
+#end

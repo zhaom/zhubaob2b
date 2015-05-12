@@ -1,0 +1,32 @@
+#parse("./common/header.html")
+
+	<link href="#IMAGE_URL()app/css/tradeIn.css" type="text/css" rel="stylesheet" />
+
+	<div class="list container">
+		<h2>我的回购申请</h2>
+		<table cellspacing="0" cellpadding="0">
+			<thead>
+				<tr>
+					<th class="time w120">预约时间</th>
+					<th class="w200">目标回购商</th>
+					<th>金料</th>
+					<th class="w100">申请人</th>
+					<th class="do w100">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				#foreach($r in $data)
+				<tr>
+					<td class="time w120">${r.applyTime}</td>
+					<td class="w200">${r.vender.kshopAgencyName}</td>
+					<td class="l">#foreach($item in $r.items)<p>${item.materialRolex} ${item.selfWeight}g</p>#end</td>
+					<td class="w100">${r.customer.kshopUserNickName}</td>
+					<td class="do w100"><a href="/tradeIn/${r.id}.html">查看</a></td>
+				</tr>
+				#end
+			</tbody>
+		</table>
+		#parse("./common/pagination.html")
+	</div>
+
+#parse("./common/footer.html")

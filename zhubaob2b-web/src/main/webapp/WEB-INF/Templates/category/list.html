@@ -1,0 +1,74 @@
+#parse("./common/header.html")
+
+	<link href="#IMAGE_URL()app/css/list.css" type="text/css" rel="stylesheet" />
+
+	<div class="container">
+		<div class="choose clearfix">
+			<ul>
+				<li class="position"><a class="f_r">重置筛选条件</a>全部分类#foreach($name in $poisitions)>>${name}#end</li>
+				<li>
+					<span class="title f_l w100">按材质</span>
+					<span class="list pad_l_r_10 f_l"><a href="/category/"#if(!$materials||!$materials.containsKey($materialId)) class="current"#end>不限</a>#foreach($r in $materials)<a href="/category/${r.id}.html"#if($r.id == $materialId) class="current"#end>${r.name}</a>#end</span>
+					<span class="toogle f_r"><a><em class="icon f_l"></em>展开<em></em></a></span>
+				</li>
+				<li>
+					<span class="title f_l w100">按款式</span>
+					<span class="list pad_l_r_10 f_l"><a href="${urlUtils.parseUrl("styleId", null)}"#if(!$styles||!$styles.containsKey($styleId)) class="current"#end>不限</a>#foreach($r in $styles)<a href="${urlUtils.parseUrl("styleId", $r.id)}"#if($r.id == $styleId) class="current"#end>${r.name}</a>#end#foreach($r in $styles)<a href="${urlUtils.parseUrl("styleId", $r.id)}"#if($r.id == $styleId) class="current"#end>${r.name}</a>#end</span>
+					<span class="toogle f_r"><a><em class="icon f_l"></em>展开</a></span>
+				</li>
+				<li>
+					<span class="title f_l w100">按主题系列</span>
+					<span class="list pad_l_r_10 f_l"><a href="${urlUtils.parseUrl("seriesId", null)}"#if(!$series||!$series.containsKey($seriesId)) class="current"#end>不限</a>#foreach($r in $series)<a href="${urlUtils.parseUrl("seriesId", $r.id)}"#if($r.id == $seriesId) class="current"#end>${r.name}</a>#end</span>
+					<span class="toogle f_r"><a><em class="icon f_l"></em>展开</a></span>
+				</li>
+				#foreach($attribute in $attributes)
+				<li>
+					<span class="title f_l w100">${attribute.name}</span>
+					<span class="list pad_l_r_10 f_l"><a href="${attribute.url}"#if($attribute.isSelected == false) class="current"#end>不限</a>#foreach($value in $attribute.values)<a href="${value.url}"#if($value.isSelected) class="current"#end>${value.value}</a>#end</span>
+					<span class="toogle f_r"><a><em class="icon f_l"></em>展开</a></span>
+				</li>
+				#end
+			</ul>
+		</div>
+		<script type="text/javascript">
+			$(function(){
+				$(".choose ul li .list").each(function(){
+					var $this = $(this);
+					var toogle = $this.next(".toogle");
+					$this.height() == 30 ? toogle.remove() : toogle.show();
+				});
+
+				$(".toogle").toggle(function(){
+					$(this).parent("li").css("height", "auto");
+					$(this).html('<a><em class="icon f_l"></em>收起</a>');
+					$(this).addClass("open");
+				}, function(){
+					$(this).parent("li").css("height", "30px");
+					$(this).html('<a><em class="icon f_l"></em>展开</a>');
+					$(this).removeClass("open");
+				});
+			});
+		</script>
+		<div class="filter mar_t_15 clearfix">
+			<span class="left f_l"><a class="current">排序</a>#if($orderby == "sellCount")<a href="${urlUtils.parseUrl("order", $order)}" class="current">销量</a>#else<a href="${urlUtils.parseUrl("orderby", "sellCount")}">销量</a>#end#if($orderby == "onShelfTime")<a href="${urlUtils.parseUrl("order", $order)}" class="current">#else<a href="${urlUtils.parseUrl("orderby", "onShelfTime")}">#end上架时间</a></span>
+			<span class="right f_r"><a href="/category/#if($materialId)${materialId}.html#end#if($queryString)?${queryString}#end"#if(!$type||$type == "all") class="current"#end>全部#if(!$type||$type == "all")(${totals})#end</a><a href="/category#if($materialId)/${materialId}#end/dingjia.html#if($queryString)?${queryString}#end"#if($type == "dingjia") class="current"#end>定价商品#if($type == "dingjia")(${totals})#end</a><a href="/category#if($materialId)/${materialId}#end/jijia.html#if($queryString)?${queryString}#end"#if($type == "jijia") class="current"#end>计价商品#if($type == "jijia")(${totals})#end</a></span>
+		</div>
+	</div>
+
+	<div class="container">
+		<div class="list_goods clearfix">
+			<ul>
+				#foreach($r in $products)
+				<li><a href="/product/${r.id}.html" title="${r.name}" class="thumb" target="_blank"><img src="#LOADING_IMAGE_URL()" data-original="${r.img}_230x230.jpg" alt="${r.name}" title="${r.name}" class="lazyload" /></a>#if($r.vender.kshopAgencyName)<p class="company-name fb">${r.vender.kshopAgencyName}</p>#end<h5><a href="/product/${r.id}.html" target="_blank">${r.name}</a></h5></li>
+				#end
+			</ul>
+			#foreach($r in $products)
+			<!--dl>
+				<dd>#if($r.isFixedPrice == 1)<h3><span>￥${r.price}</span><i>￥${r.price}</i></h3>#end</dd>
+			</dl-->
+			#end
+		</div>
+		#parse("./common/pagination.html")
+	</div>
+
+#parse("./common/footer.html")

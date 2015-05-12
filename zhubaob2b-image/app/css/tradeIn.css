@@ -1,0 +1,46 @@
+@charset "UTF-8";
+.container h2 {height: 40px; line-height: 40px;}
+
+.container .main {border-top: solid 1px #EFE4CB; overflow: hidden;}
+.container .main .item {border: solid 1px #EFE4CB; border-top: none; overflow: hidden;}
+
+.list table {width: 100%;}
+.list table tr th, .list table tr td {border: solid 1px #EFE4CB;}
+.list table tr th {height: 30px; background-color: #FFFDF4; line-height: 30px;}
+.list table tr th.subject {background-color: #FFFDF4; text-align: left; text-indent: 10px;}
+.list table tr td {min-height: 25px; line-height: 25px; text-align: center; vertical-align: middle;}
+.list table tr td.l {padding: 3px 0px;}
+.list table tr td.time {color: #D42525;}
+.list table tr td.l p {height: 22px; line-height: 22px;}
+.list table tr td.do a {color: #E3C288;}
+
+.apply .main .title {height: 30px; font-weight: bold; background-color: #FFFDF4; line-height: 30px; text-indent: 10px;}
+.apply .main .title a {font-weight: normal;}
+.apply .main .txt-item {padding-top: 8px; padding-bottom: 8px;}
+.apply .main .user-item {text-align: center;}
+.apply .main .bottom {background-color: #FFFDF4; padding-top: 30px; padding-bottom: 30px;}
+.apply .main .item .txt {border: solid 1px #CDCDCD;}
+.apply .main .txt-item .txt {width: 300px; height: 24px; margin-left: 50px; padding: 2px 4px; line-height: 24px;}
+.apply .main .txt-item select.txt {width: 310px;}
+.apply .main .txt-item select.txt option {height: 24px; padding: 2px 4px; line-height: 24px;}
+.apply .main .item-item table {width: 100%;}
+.apply .main .item-item table .jl {width: 40%;}
+.apply .main .item-item table .weight {width: 40%; border-left: solid 1px #EFE4CB; border-right: solid 1px #EFE4CB;}
+.apply .main .item-item table thead tr th {height: 30px; line-height: 30px;}
+.apply .main .item-item table tbody tr td {border-top: solid 1px #EFE4CB; padding: 3px 0px; text-align: center;}
+.apply .main .item-item table tbody tr td .txt {width: 200px; height: 18px; padding: 2px; line-height: 18px;}
+.apply .main .item-item table tbody tr td a {color: #E3C288;}
+.apply .main .item .apply-submit-btn {width: 104px; height: 32px; background-image: url(/app/images/btn/apply-submit.png); margin-left: auto; margin-right: auto; text-indent: -9999px;}
+.apply .main label.error {color: #FF0000; margin-left: 5px;}
+
+.detail .main {border: solid 1px #EFE4CB; padding-top: 20px; padding-bottom: 20px;}
+.detail .main table {width: 760px;}
+.detail .main table tr td {height: 30px; border: solid 1px #EFE4CB; line-height: 30px;}
+.detail .main table tr td.title {width: 120px; font-weight: bold; text-align: center;}
+.detail .main table tr td.hot {color: #D42525;}
+.detail .main table tr td .data {width: 100%;}
+.detail .main table tr td .data * {height: 30px; line-height: 30px;}
+.detail .main table tr td .data span {width: 400px; border-top: solid 1px #EFE4CB; text-align: center; display: inline-block; overflow: hidden;}
+.detail .main table tr td .data span.left {width: 236px; border-right: solid 1px #EFE4CB;}
+.detail .main table tr td .data dt span {border-top: none;}
+.detail .main table tr td .contacter li {height: 30px; line-height: 30px; text-align: left; text-indent: 10px;}

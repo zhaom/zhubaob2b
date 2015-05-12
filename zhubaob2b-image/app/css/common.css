@@ -1,0 +1,96 @@
+@charset "UTF-8";
+a.blue {color: #1682B9;}
+input[type='radio'] {position: relative; top: -3px;}
+
+#header, #header .toolbar {width: 100%;}
+#header {background: url(/app/images/header-bg.jpg) repeat-x top center;}
+#header a .icon {width: 0px; height: 0px; font-size: 0px; background: url(/app/images/aa1ft87mfk11ow80.png) no-repeat -8px 0px; padding: 4px 6px; line-height: 0px; position: relative; display: inline-block;}
+#header .toolbar {width: 962px; height: 28px; color: #FFFFFF; line-height: 28px;}
+#header .toolbar a {text-decoration:none;}
+#header .toolbar .no-login {}
+#header .toolbar .no-login a {color: #DDB218; margin-left: 3px;}
+#header .toolbar .my {display: block;}
+#header .toolbar .my .my-menu, #header .toolbar .my .my-menu li {height: 28px; line-height: 28px;}
+#header .toolbar .my .my-menu li {padding-left: 7px; padding-right: 7px; position: relative; float: left; clear: right;}
+#header .toolbar .my .my-menu li a {color: #FFFFFF; display: inline-block; float: none; clear: both;}
+#header .toolbar .my .my-menu li a .icon {top: 1px; *top: 0px;}
+#header .toolbar .my .my-menu li a b {color: #DDB218; font-weight: 600;}
+#header .toolbar .my .my-menu li .discover {background-color: #4F4D4D; padding: 7px 0px; position: absolute; top: 27px; left: 0px; overflow: hidden; z-index: 99;}
+#header .toolbar .my .my-menu li .discover ul {width: 100%;}
+#header .toolbar .my .my-menu li .discover ul li {width: 100%; height: 25px; padding: 0px 5px; line-height: 25px;}
+#header .toolbar .my .my-menu li .discover ul li:hover {background: #333; font-weight: bold;}
+#header .hd {width: 962px; padding: 10px 0px; position: relative;}
+#header .hd .logo {width: 170px;}
+#header .hd .nav {width: 500px; position: absolute; bottom: 0px; left: 200px;}
+#header .hd .nav ul, #header .hd .nav ul li {height: 40px; line-height: 40px;}
+#header .hd .nav ul {}
+#header .hd .nav ul li {padding: 0px 20px; float: left; clear: right;}
+#header .hd .nav ul li.current {background-color: #000000;}
+#header .hd .nav ul li a {font-size: 16px; color: #BDBDBD; font-weight: bold; text-decoration: none;}
+#header .hd .nav ul li.current a {color: #D19F1A;}
+#header .hd .search {width: 255px;}
+#header .hd .search span {}
+#header .hd .search .search-m {display: block; overflow: hidden;}
+#header .hd .search .search-m .txt {width: 200px; height: 24px; color: #5C5C5C; border: solid 1px #8E908F; border-radius: 3px 0px 0px 3px; padding: 2px 4px; line-height: 24px;}
+#header .hd .search .search-m .btn {width: 43px; height: 30px; background: url(/app/images/search-btn.png) #A3A3A1 no-repeat center center; border-radius: 0px; -moz-border-radius: 0px; -webkit-border-radius: 0px; text-indent: -999px;}
+#header .hd .search .a-link {height: 30px; line-height: 30px; text-align: right;}
+#header .hd .search .a-link a, #header .hd .search .a-link a .icon {overflow: hidden;}
+#header .hd .search .a-link a {width: 65px; color: #FFFFFF; text-decoration: none; display: block; float: left; clear: right;}
+#header .hd .search .a-link a .icon {top: 12px;}
+
+.container.collapse {border-top: solid 1px #EFE4CB;}
+
+.column {border: solid 1px #EFE4CB;}
+.container.collapse .column {border-top: none;}
+.column .head {height: 35px; font-size: 14px; font-weight: normal; background-color: #FFFDF4; border-bottom: solid 1px #EFE4CB; line-height: 35px; text-indent: 10px;}
+.column .head a {font-size: 12px; font-weight: normal;}
+.column .head a.f_r {position: relative; right: 10px;}
+.column .box {width: 938px; margin: 0px auto; padding: 10px 0px;}
+.column .box ul.list li, .column .box dl.list dd {padding: 5px 0px;}
+.column .box ul.list li input[type="checkbox"], .column .box dl.list dd input[type="checkbox"], .column .box ul.list li input[type="radio"], .column .box dl.list dd input[type="radio"] {margin-right: 3px;}
+.column .box dl dt {font-weight: bold;}
+.column .form-box .item {width: 100%; height: auto; padding: 8px 0px; overflow: hidden;}
+.column .form-box .item .subject, .column .form-box .item .content {height: 100%; line-height: 100%; float: left; clear: right; display: block; vertical-align: middle; overflow: hidden;}
+.column .form-box .item .subject {width: 80px; height: 28px; line-height: 28px; padding-right: 8px; clear: right; text-align: right;}
+.column .form-box .item input.txt, .column .form-box .item select.txt {width: 200px; height: 22px; border: solid 1px #CDCDCD; padding: 2px;}
+.column .form-box .item select.txt, .column .form-box .item select.txt option {height: 22px; line-height: 22px;}
+.column .form-box .bottom {padding: 15px 0px; text-align: center; overflow: hidden;}
+.column .form-box .bottom .btn {width: 80px; height: 30px; font-weight: bold; margin: 0px 5px; line-height: 30px; float: left; clear: right; overflow: hidden;}
+.column .table-box {width: 958px; padding: 0px;}
+.column .table-box .list-table {width: 100%;}
+.column .table-box .list-table .last-col {border-right: none;}
+.column .table-box .list-table th, .column .table-box .list-table td {border-right: solid 1px #EFE4CB;}
+.column .table-box .list-table thead tr th {height: 30px; font-size: 14px; font-weight: normal; line-height: 30px; text-align: center;}
+.column .table-box .list-table tbody tr td {border-top: solid 1px #EFE4CB; text-align: center;}
+.column .table-box .list-table tfoot tr th {border-top: solid 1px #EFE4CB; padding-top: 10px; padding-bottom: 10px;}
+
+.pagination {}
+.pagination ul .pagination ul li {}
+.pagination ul li {height: 32px; padding: 0px 5px; line-height: 32px; float: left; clear: right;}
+.pagination ul li a {width: 30px; height: 30px; border: solid 1px #EFE4CB; line-height: 30px; text-align: center; text-decoration: none; display: block;}
+.pagination ul li a.current {font-weight: bold; background-color: #FFFDF4;}
+.pagination ul li a.previous, .pagination ul li a.next {width: 70px;}
+.pagination ul li.go-page input {float: left; clear: right;}
+.pagination ul li.go-page .txt {width: 50px; height: 22px; border: solid 1px #CDCDCD; padding: 2px; line-height: 22px;}
+
+.order-step {height: 100px; background-repeat: no-repeat; background-position: center top; border: none;}
+.order-step.order-step-WAIT_WEIGHT {background-image: url(/app/images/order-step-1.jpg);}
+.order-step.order-step-WEIGHTING {background-image: url(/app/images/order-step-2.jpg);}
+.order-step.order-step-WEIGHTED {background-image: url(/app/images/order-step-3.jpg);}
+.order-step.order-step-WAIT_CONFIRM {background-image: url(/app/images/order-step-4.jpg);}
+
+#user-login-dialog iframe, .user-login-iframe {width: 470px; height: 300px; border: none; margin: 0px; padding: 0px;}
+
+#footer {width: 100%; background-color: rgb(45, 43, 44); margin-top: 20px; padding: 10px 0px 15px 0px;}
+#footer * {color: #C3C3C3;}
+#footer .service, #footer ul {margin: 0px auto;}
+#footer .service {width: 960px;}
+#footer .service dl {width: 120px; float: left; clear: right;}
+#footer .service dl.logo {width: 240px; padding-top: 35px; text-align: center;}
+#footer .service dl dt {height: 30px; line-height: 30px; text-align: center;}
+#footer .service dl dt a {font-size: 16px; color: #FFFFFF;}
+#footer .service dl dd {text-align: center;}
+#footer ul li {width: 960px; height: 30px; margin-left: auto; margin-right: auto; line-height: 30px; text-align: center;}
+#footer ul li.friend-link {height: auto; line-height: 20px;}
+#footer ul li.friend-link a {margin: 0px 3px;}
+#footer ul li.line {width: 90%; height: 1px; font-size: 0px; background-color: #414141; border-top: solid 1px #0D0D0D; line-height: 0px;}

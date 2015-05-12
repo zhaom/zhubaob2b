@@ -1,0 +1,150 @@
+#parse("./common/header.html")
+${mergeResource.css("list.css,order.css", "app/css/")}
+
+	<div id="orderBalanceDetail" class="collapse container">
+		<form id="payForm" action="/pay/pay?type=balance" method="post">
+		<div class="column clearfix">
+			<h2 class="head">订单号：${r.id}</h2>
+			<div class="box clearfix">
+				<ul>
+					<li>供应商：$!{r.vender.kshopAgencyName}</li>
+				</ul>
+			</div>
+		</div>
+		<div class="column clearfix">
+			<h2 class="head">结价流水</h2>
+			<div class="box clearfix">
+				#if(!$flows||$flows.size() == 0)
+				暂无结价流水
+				#else
+				<ul>
+					#foreach($flow in $flows)
+					<li>${dateFormat.format($flow.createdDate)}</li>
+					#end
+				</ul>
+				#end
+			</div>
+		</div>
+		<div class="column clearfix">
+			<h2 class="head">结价情况</h2>
+			<div class="box clearfix">
+				<ul>
+				</ul>
+			</div>
+		</div>
+		<div class="column clearfix">
+			<h2 class="head">商品清单</h2>
+			<div class="table-box box clearfix">
+				<table cellpadding="0" cellspacing="0" class="list-table">
+					<thead>
+						<tr>
+							<th colspan="2">商品情况</th>
+							<th class="w100">待结算重量</th>
+							<th class="w150">实时金价</th>
+							<th class="last-col w120">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+						#foreach($product in $r.goods)
+						<tr>
+							<td class="thumb"><a href="/product/${product.id}.html" title="${product.name}" target="_blank"><img src="#LOADING_IMAGE_URL()" data-original="${product.coverImg}_125x125.jpg" title="${product.name}" alt="${product.name}" class="lazyload" /></a></td>
+							<td class="detail">
+								<dl>
+									<dt><a href="/product/${product.id}.html" title="${product.name}" target="_blank">${product.name}</a></dt>
+									#PRODUCT_SKU_ATTRIBUTES($product, "dd")
+								</dl>
+							</td>
+							<td class="w80">
+							#if($product.isFixedPrice == 1)
+							<p>无</p><p>一口价商品</p>
+							#else
+							#set($weight = $product.materialWeight - $product.balanceWeight)
+							#if($weight == 0)<p>已结价完成</p>#else${weight} g#end
+							#end
+							</td>
+							<td class="w150 price">
+								#if($product.isFixedPrice == 1)
+								<p>无</p><p>一口价商品</p>
+								#else
+								<dl>
+									<dd>当前金价：<span>${currentGoldPrice} 元/g</span></dd>
+									<dd>购入金价：<span>${r.payPrice.curPrice.getMaterialPrice($product.materialId)} 元/g</span></dd>
+								</dl>
+								#end
+							</td>
+							<td class="last-col w120">
+								<input name="goodsIds[]" type="hidden" value="${product.id}" />
+								#if($product.isFixedPrice == 1)
+								<p>无</p><p>一口价商品</p>
+								#else
+								#set($weight = $product.materialWeight - $product.balanceWeight)
+								#if($weight == 0)<p>已结价完成</p>#else结价：<input name="weights[${product.id}]" type="text" value="1" max="${weight}" class="weight txt w50" /> g#end
+								#end
+							</td>
+						</tr>
+						#end
+					</tbody>
+					#if($r.balanceStatus != "BALANCED")
+					<tfoot>
+						<tr>
+							<th>总计</th>
+							<th colspan="4" class="last-col pad_l_15">
+								<a name="pay_submit"></a>
+								<dl>
+									<dt>结价金重：</dt>
+									<dd>黄金金料：<em class="weight_total">0</em> 克</dd>
+									<!--dd class="fb">解冻金额：<span class="price">111111111111 元</span></dd>
+									<dd class="fb">剩余未解冻金额：<span class="price">111111111111 元</span></dd-->
+								</dl>
+								<a href="javascript:$('#payForm').submit();" class="pay-btn w80 btn-red mar_t_10 btn">付款</a>
+							</th>
+						</tr>
+					</tfoot>
+					#end
+				</table>
+			</div>
+		</div>
+		<input id="weight" name="weight" type="hidden" value="0" />
+		<input name="orderId" type="hidden" value="${r.id}" />
+		</form>
+	</div>
+
+	<script src="http://image.zhubao.com/js/jquery.validate.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		function update_weight_total(){
+			var weight_total = 0;
+
+			$(".weight").each(function(){
+				weight_total += parseInt($(this).val());
+			});
+			$(".weight_total").text(weight_total);
+			$("#weight").val(weight_total);
+		}
+
+		$(document).ready(function(){
+			update_weight_total();
+
+			$(".weight").each(function(){
+				var $this = $(this);
+				var value = parseInt($this.val());
+				var maxValue = parseInt($this.attr("max"));
+
+				$(this).blur(function(){
+					var val = $this.val();
+					if($.validator.methods.isWeight(val, $this, null) == false){
+						$this.val(value);
+					}else if(val > maxValue){
+						$this.val(maxValue);
+						value = maxValue;
+						weight_total.text(weight_total.text() + value);
+						update_weight_total();
+					}else{
+						value = $this.val();
+						update_weight_total();
+					}
+				});
+			});
+		});
+	</script>
+
+#parse("./common/footer.html")

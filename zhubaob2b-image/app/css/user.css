@@ -1,0 +1,19 @@
+@charset "UTF-8";
+#userLogin {width: 470px;}
+#userLogin h2 {width:430px; height:40px; font-size: 14px; color:#666666; padding:0px 20px; line-height:40px; border-bottom:1px solid #efe4cb;}
+#userLogin .main {width:322px; margin: 0px auto; padding: 20px 0px;}
+#userLogin .main .item {width: 100%; height:40px;line-height:40px;}
+#userLogin .main .item label{width:44px;height:25px;line-height:25px;display:inline-block;*zoom:1;*display:inline;margin-right:20px;}
+#userLogin .main .item input.txt{width:240px;height:26px;line-height:26px;border:1px solid #e2d2ae;color:#999999;padding: 2px 4px; display:inline-block;*zoom:1;*display:inline;border-radius:2px;-moz-border-radius:2px;-webkit-border-radius:2px;}
+#userLogin .main .item input.rememberMe {position: relative; top: -1; margin-right: 3px;}
+#userLogin .main .item input.sub_btn{width:310px;background:#e2a82c;height:33px;line-height:33px;border:1px solid #e2d2ae;color:#fff;font-size:16px;font-weight:bold;margin: 0px auto;*zoom:1;text-shadow:0px 0px 1px #c2890f;-moz-text-shadow:0px 0px 1px #c2890f;-webkit-text-shadow:0px 0px 1px #c2890f;}
+
+#profile {border-bottom: solid 1px #EFE4CB;}
+#profile .column {border-bottom: none;}
+#profile .column .box {position: relative;}
+#profile .column .box ul li {height: 25px; line-height: 25px;}
+#profile .column .box .name {height: 35px; font-size: 20px; line-height: 35px;}
+#profile .column .box .totalFund {height: 35px; font-size: 20px; line-height: 35px;}
+#profile .column .box ul li .fund {color: #D42525;}
+#profile .column .box .recharge-btn {width: 80px; height: 30px; font-size: 14px; line-height: 30px; letter-spacing: 2px; position: absolute; top: 35%; right: 0px;}
+#profile .column .box .contacter-list .name .edit {font-size: 12px; color: #0072BB; font-weight: normal;}

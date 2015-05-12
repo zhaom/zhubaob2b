@@ -1,0 +1,61 @@
+.breadcrumb{width:938px;height:38px;line-height:38px;border:1px solid #efe4cb;background:#fffdf4;}
+.pro_detail{width:960px;background:#fff;}
+.pro_detail_left{width:450px; position:relative;}
+.pro_detail_right{width:480px;float:left;overflow:hidden; position:relative;padding-left:30px;}
+.pro_detail_left .thumb{width:448px; height:448px; border:1px solid #efe4cb; line-height: 448px; position:relative; padding:0px; text-align: center; vertical-align: middle; cursor:pointer;}
+.product{*margin-bottom:10px;}
+.wimgdiv{width:450px;height:80px; overflow: hidden; position: relative;}
+.wimgdiv .prev, .wimgdiv .next {width:20px;height:78px;display:block;background:#f00;text-indent:-9999px;background:url(/app/images/all_icons.jpg) no-repeat;}
+.wimgdiv .prev {background-position:-193px -312px;}
+.wimgdiv .prev.on {background-position:-254px -312px;}
+.wimgdiv .next {background-position:-212px -312px;}
+.wimgdiv .next.on {background-position:-233px -312px;}
+.imgdiv{width:410px;height:80px;overflow:hidden;position: absolute; left: 20px;}
+.imgList{height:80px; position: absolute; left: 0px; overflow:hidden;}
+.imgList li{width:80px;height:80px;padding-left:1px;padding-right:1px;float:left;text-align:center;overflow:hidden;position:relative;}
+.imgList li b{width:16px;height:8px;display:none;position:absolute;top:-9px;left:27px;background:url(/app/images/b_bg.jpg) no-repeat;}
+.imgList li img{width:77px;height:77px;border:1px solid #efe4cb;cursor: pointer;}
+.imgList li.current img{border-color:#d15c1c;}
+.product_name{width:100%;overflow:hidden;line-height:26px;color:#666;font-size:18px;font-weight:normal;}
+.p_level,.amount{width:100%;height:20px;line-height:20px;padding:10px 0px;}
+.p_level span{padding-right:10px;height:20px;line-height:20px;display:inline-block;*zoom:1;*display:line;}
+.p_level a{padding:0px 10px;height:20px;line-height:20px;display:inline-block;*zoom:1;*display:line;font-style:normal;border:1px solid #efe4cb;margin-right:10px;}
+.p_level a:hover{text-decoration:none;cursor:pointer;}
+.p_level a.selected{background:#8c8c82;color:#fff;}
+.a_reduce,.a_add{width:25px;height:24px;line-height:24px;display:inline-block;*zoom:1;*display:line;background:url(/app/images/all_icons.jpg) no-repeat;text-indent:-9999px;}
+.a_reduce{background-position:0px 0px;}
+.a_add{background-position:-50px 0px;}
+.show_num{width:93px;height:25px;border:1px solid #efe4cb;line-height:25px;margin:0px 10px;text-align:center;color:#333;display:inline-block;*zoom:1;*display:line;}
+.amount span{padding-right:10px;}
+.buy_btn{width:100%;height:40px;padding:20px 0px;border-bottom:1px solid #efe4cb;}
+.buy_btn a{width:146px;height:40px;line-height:40px;float:left;background:url(/app/images/all_icons.jpg) no-repeat 0px -28px;text-indent:-99999px;}
+.p_information{width:100%;}
+.p_information .sale{width:507px;border-bottom:1px solid #efe4cb;padding:10px 0px 15px 0px;}
+.p_information .sale h3,.p_information .product h3{width:507px;height:35px;font-size:14px;line-height:35px;color:#666;font-weight:normal;}
+.sale ul li{width:250px;height:20px;margin-top:4px;line-height:20px;float:left;}
+.product ul li{width:500px;height:20px;margin-top:4px;line-height:20px;float:left;}
+.sale ul li b,.product ul li b{height:20px;line-height:20px;display:inline-block;*zoom:1;*display:line;font-weight:normal;}
+.sale ul li i,.product ul li i{height:20px;line-height:20px;font-size:14px;color:#333;display:inline-block;*zoom:1;*display:line;font-style:normal;padding:0px 5px;}
+
+/*.prev{background-position:-254px -312px; clear: right;}
+.next{background-position:-254px -312px;}
+.next_finish{background-position:-212px -312px;}*/
+/*jQzoom*/
+/*div.zoomdiv {z-index: 999; position: absolute; top: 0px; left: 0px; width: 200px;
+	height                  : 200px;
+	background: #ffffff;
+	border:1px solid #CCCCCC;
+	display:none;
+	text-align: center;
+	overflow: hidden;}
+div.jqZoomPup {
+	z-index                 : 999;
+	visibility              : hidden;
+	position                : absolute;
+	top:0px;
+	left:0px;
+	width                   : 50px;
+	height                  : 50px;
+	border: 1px solid #aaa;
+	background-color: rgba(0, 0, 0, 0.5);  filter:alpha(opacity: 50);
+}*/

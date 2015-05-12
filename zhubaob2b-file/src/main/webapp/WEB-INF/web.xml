@@ -1,0 +1,40 @@
+<web-app
+        xmlns="http://java.sun.com/xml/ns/javaee"
+        id="WebApp_ID" version="3.0" metadata-complete="true">
+
+    <display-name>upload-file</display-name>
+
+    <servlet>
+        <servlet-name>uploadImage</servlet-name>
+        <servlet-class>com.zhubao.b2b.file.servlet.UploadServlet</servlet-class>
+        <init-param>
+            <param-name>uploadRoot</param-name>
+            <param-value>/home/htdocs/okgold.com/upload.okgold.com/</param-value>
+        </init-param>
+        <init-param>
+            <param-name>saveToPattern</param-name>
+            <param-value>/{year}/{month}/{day}/</param-value>
+        </init-param>
+        <init-param>
+            <param-name>fileURLBase</param-name>
+            <param-value>http://okgoldupload.zhubao.com</param-value>
+        </init-param>
+        <init-param>
+            <param-name>fileURLPattern</param-name>
+            <param-value>/{year}/{month}/{day}/{filename}</param-value>
+        </init-param>
+        <init-param>
+            <param-name>maxFileSizeInMB</param-name>
+            <param-value>5</param-value>
+        </init-param>
+        <init-param>
+            <param-name>encoding</param-name>
+            <param-value>utf-8</param-value>
+        </init-param>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>uploadImage</servlet-name>
+        <url-pattern>/uploadImage</url-pattern>
+    </servlet-mapping>
+
+</web-app>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+         http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+   <!-- <bean name="options" class="com.mongodb.MongoOptions">
+    </bean>  -->
+
+    <bean name="mongo" class="com.mongodb.Mongo">
+        <constructor-arg value="${db.host}" type="java.lang.String"/>
+        <constructor-arg value="${db.port}" type="int"/>
+    </bean>
+
+    <bean name="morphia" class="com.zhubao.b2b.platform.morphia.MorphiaFactoryBean">
+        <property name="mapPackages">
+            <array>
+                <value>com.zhubao.b2b.platform.model</value>
+            </array>
+        </property>
+    </bean>
+
+    <bean name="datastore" class="com.zhubao.b2b.platform.morphia.MorphiaDataStoreFactoryBean">
+        <property name="morphia" ref="morphia"/>
+        <property name="mongo" ref="mongo"/>
+        <property name="dbName" value="${db.name}"/>
+    </bean>
+</beans>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+
+<decorators defaultdir="/WEB-INF/decorators">
+    <decorator name="main" page="main-layout.ftl">
+        <pattern>/manage/main/*.do</pattern>
+    </decorator>
+    <decorator name="goods" page="goods-layout.ftl">
+        <pattern>/manage/goods/*.do</pattern>
+    </decorator>
+    <decorator name="order" page="order-layout.ftl">
+        <pattern>/manage/order/*.do</pattern>
+    </decorator>
+    <decorator name="settle" page="settle-layout.ftl">
+        <pattern>/manage/settle/*.do</pattern>
+    </decorator>
+    <decorator name="member" page="member-layout.ftl">
+        <pattern>/manage/member/*.do</pattern>
+    </decorator>
+    <decorator name="shop" page="shop-layout.ftl">
+        <pattern>/manage/shop/*.do</pattern>
+    </decorator>
+</decorators>

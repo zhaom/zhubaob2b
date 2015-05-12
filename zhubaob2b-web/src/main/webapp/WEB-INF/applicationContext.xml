@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context" 
+	xmlns:aop="http://www.springframework.org/schema/aop" 
+	xmlns:tx="http://www.springframework.org/schema/tx" 
+	xmlns:util="http://www.springframework.org/schema/util" 
+	xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd 
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd 
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd 
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd 
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd 
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd">
+	<bean id="propertyPlaceholderConfigurer" 
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<list>
+				<value>classpath:memcached.properties</value>
+				<value>classpath:db-config.properties</value>
+                <value>classpath:kshop-config.properties</value>
+				<value>classpath:velocity.properties</value>
+			</list>
+		</property>
+		<property name="ignoreResourceNotFound" value="true" />
+	</bean>
+
+    <import resource="classpath:ds-beans.xml" />
+    <import resource="classpath:dao-beans.xml" />
+    <import resource="classpath:service-beans.xml" />
+
+	<bean id="captchaProducer" class="com.google.code.kaptcha.impl.DefaultKaptcha">
+        <property name="config">
+        	<bean class="com.google.code.kaptcha.util.Config">
+            	<constructor-arg type="java.util.Properties">
+                	<props>
+                    	<prop key="kaptcha.image.width">120</prop>
+                        <prop key="kaptcha.image.height">40</prop>
+                        <prop key="kaptcha.background.clear.from">191,33,47</prop>
+                        <prop key="kaptcha.background.clear.to">191,33,47</prop>
+                        <prop key="kaptcha.textproducer.char.string">0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ</prop>
+                        <prop key="kaptcha.textproducer.font.names">Arial,Verdana,Tahoma,sans-serif</prop>
+                        <prop key="kaptcha.textproducer.font.color">255,255,255</prop>
+                        <prop key="kaptcha.textproducer.char.length">4</prop>
+                        <prop key="kaptcha.textproducer.font.size">30</prop>
+                        <prop key="kaptcha.noise.color">30,144,255</prop>
+                        <prop key="kaptcha.session.key">captcha</prop>
+					</props>
+				</constructor-arg>
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="memcachedClient" class="net.spy.memcached.MemcachedClient">
+		<constructor-arg index="0">
+			<list>
+				<bean class="java.net.InetSocketAddress">
+					<constructor-arg index="0" value="${memcached.0.host}" />
+					<constructor-arg index="1" value="${memcached.0.port}" />
+				</bean>
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<context:annotation-config />
+	<mvc:annotation-driven />
+	<context:component-scan base-package="com.zhubao.b2b" />
+
+	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    	<property name="securityManager" ref="securityManager" />
+    	<property name="loginUrl" value="/User/Login.html" />
+    	<property name="successUrl" value="/user/list" />
+    	<property name="unauthorizedUrl" value="/User/Login.html" />
+    	<property name="filters">
+      		<map>
+         		<entry key="authc" value-ref="authenticationFilter" />
+         		<entry key="user" value-ref="userFilter" />
+      		</map>
+   		</property>
+	</bean>
+
+	<bean id="authenticationFilter" class="com.zhubao.b2b.web.filter.CaptchaFormAuthenticationFilter" />
+	<bean id="userFilter" class="org.apache.shiro.web.filter.authc.UserFilter" />
+
+	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
+        <property name="realm" ref="shiroRealm" />
+    	<property name="sessionManager" ref="sessionManager" />
+    </bean>
+
+    <bean id="shiroRealm" class="com.zhubao.b2b.web.auth.ShiroRealm" />
+
+    <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor" />
+    <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
+        <property name="securityManager" ref="securityManager"/>
+    </bean>
+    
+    <bean id="sessionManager" class="org.apache.shiro.web.session.mgt.DefaultWebSessionManager">
+    	<property name="sessionDAO" ref="sessionDao" />
+    	<property name="globalSessionTimeout" value="1200000" />
+	</bean>
+ 
+    <bean id="sessionDao" class="com.zhubao.b2b.web.auth.MemcacheSessionDao">
+    	<property name="timeout" value="1200000" />
+	</bean>
+	
+    <!-- 保证实现了Shiro内部lifecycle函数的bean执行 -->
+    <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
+    
+    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    	<property name="exceptionMappings">
+	    	<props>
+	    		<prop key="org.apache.shiro.authz.UnauthorizedException">redirect:/User/Login.html</prop>
+	    		<prop key="org.apache.shiro.authz.UnauthenticatedException">redirect:/User/Login.html</prop>
+	    	</props>
+    	</property>
+    </bean>
+
+	<bean id="velocityConfigurer" class="org.springframework.web.servlet.view.velocity.VelocityConfigurer">
+        <property name="configLocation" value="classpath:velocity.properties"/>
+        <property name="resourceLoaderPath" value="/WEB-INF/Templates/"/>
+        <property name="velocityProperties">
+            <props>
+                <prop key="input.encoding">UTF-8</prop>
+                <prop key="output.encoding">UTF-8</prop>
+            </props>
+        </property>
+    </bean>
+
+	<!-- 根据客户端的不同的请求决定不同的 view 进行响应 -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <!-- 设置为true以忽略对Accept Header的支持 -->
+        <property name="ignoreAcceptHeader" value="true" />
+        <property name="defaultContentType" value="text/html; charset=UTF-8" />
+        <property name="mediaTypes">
+            <map>
+                <entry key="html" value="text/html; charset=UTF-8" />
+                <entry key="json" value="application/json; charset=UTF-8" />
+            </map>
+        </property>
+        <property name="viewResolvers">
+            <list>
+                <bean class="org.springframework.web.servlet.view.BeanNameViewResolver" />
+                <bean class="org.springframework.web.servlet.view.velocity.VelocityViewResolver">
+                	<property name="toolboxConfigLocation" value="/WEB-INF/velocityToolBox.xml" />
+        			<property name="viewClass" value="org.springframework.web.servlet.view.velocity.VelocityToolboxView" />
+                    <property name="prefix" value="" />
+        			<property name="suffix" value=".html" />
+        			<property name="contentType" value="text/html; charset=UTF-8" />
+                </bean>
+            </list>
+        </property>
+	</bean>
+</beans>
